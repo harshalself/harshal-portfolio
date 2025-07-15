@@ -1,0 +1,64 @@
+---
+title: "Realtime Chat App"
+publishedAt: "2024-04-06"
+summary: "A modern real-time chat application built with React and Firebase. Features instant messaging, user authentication, protected routes, responsive UI, and seamless real-time communication between users using Firebase Realtime Database."
+images:
+  - "https://raw.githubusercontent.com/harshalself/Realtime-Chat-App-Firebase/refs/heads/main/Screenshot-1.png"
+technologies:
+  - React
+  - TypeScript
+  - Firebase
+  - Firebase Authentication
+  - Firebase Realtime Database
+  - CSS Modules
+link: "https://github.com/harshalself/Realtime-Chat-App-Firebase"
+---
+
+## Overview
+
+Realtime Chat App is a modern chat platform with real-time messaging, authentication, and a responsive UI. Built with React and Firebase for seamless communication.
+
+## Key Features
+
+- **Instant Messaging**: Real-time chat between users.
+- **Authentication**: Secure login and protected routes.
+- **Responsive UI**: Works on all devices.
+- **Firebase Backend**: Uses Firebase Realtime Database for instant updates.
+
+## Technologies Used
+
+<TechIcons />
+
+- **React**
+- **TypeScript**
+- **Firebase**
+- **Firebase Authentication**
+- **Firebase Realtime Database**
+- **CSS Modules**
+
+## Challenges and Learnings
+
+Integrating real-time updates and authentication was a key challenge. The project improved my skills in React, TypeScript, and Firebase ecosystem.
+
+## Outcome
+
+The app provides a fast, secure, and modern chat experience for users.
+
+---
+
+import { FaReact } from "react-icons/fa";
+import { SiTypescript, SiFirebase, SiCssmodules } from "react-icons/si";
+import { MdSecurity } from "react-icons/md";
+
+export function TechIcons() {
+  return (
+    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+      <FaReact size={32} title="React" />
+      <SiTypescript size={32} title="TypeScript" />
+      <SiFirebase size={32} title="Firebase" />
+      <MdSecurity size={32} title="Firebase Authentication" />
+      <SiFirebase size={32} title="Firebase Realtime Database" />
+      <SiCssmodules size={32} title="CSS Modules" />
+    </div>
+  );
+}

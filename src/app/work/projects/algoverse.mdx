@@ -1,0 +1,59 @@
+---
+title: "AlgoVerse"
+publishedAt: "2024-04-03"
+summary: "AlgoVerse is a web-based platform designed to help users visualize and solve pathfinding problems using Dijkstra's algorithm. The project features an interactive interface for creating graphs and running the Dijkstra solver, making it ideal for students, educators, and anyone interested in learning about graph algorithms."
+images:
+  - "https://raw.githubusercontent.com/harshalself/AlgoVerze/main/Screenshot%202.png"
+technologies:
+  - JavaScript
+  - HTML
+  - CSS
+  - Graph Algorithms
+  - Dijkstra's Algorithm
+link: "https://github.com/harshalself/AlgoVerze"
+---
+
+## Overview
+
+AlgoVerse is a platform for visualizing and solving pathfinding problems using Dijkstra's algorithm. It features an interactive interface for graph creation and algorithm demonstration.
+
+## Key Features
+
+- **Graph Creation**: Users can create and edit graphs interactively.
+- **Dijkstra's Algorithm Visualization**: Step-by-step visualization of the algorithm.
+- **Educational Tool**: Ideal for students and educators to learn about graph algorithms.
+
+## Technologies Used
+
+<TechIcons />
+
+- **JavaScript**
+- **HTML**
+- **CSS**
+- **Graph Algorithms**
+- **Dijkstra's Algorithm**
+
+## Challenges and Learnings
+
+Building AlgoVerse improved my understanding of graph theory and algorithm visualization. Creating an intuitive UI for graph editing and algorithm steps was a key challenge.
+
+## Outcome
+
+AlgoVerse helps users understand and experiment with pathfinding algorithms in a hands-on way.
+
+---
+
+import { FaJs, FaHtml5, FaCss3Alt, FaProjectDiagram } from "react-icons/fa";
+import { GiPathDistance } from "react-icons/gi";
+
+export function TechIcons() {
+  return (
+    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+      <FaJs size={32} title="JavaScript" />
+      <FaHtml5 size={32} title="HTML" />
+      <FaCss3Alt size={32} title="CSS" />
+      <FaProjectDiagram size={32} title="Graph Algorithms" />
+      <GiPathDistance size={32} title="Dijkstra's Algorithm" />
+    </div>
+  );
+}

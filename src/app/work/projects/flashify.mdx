@@ -1,0 +1,74 @@
+---
+title: "Flashify"
+publishedAt: "2024-04-07"
+summary: "AI-powered app that generates flashcards and quizzes from uploaded study materials, tracks learning progress, and works seamlessly across platforms."
+images:
+  - "https://raw.githubusercontent.com/harshalself/Flashify/refs/heads/main/SS-1.jpg"
+technologies:
+  - React Native
+  - Expo
+  - TypeScript
+  - Tailwind CSS
+  - Supabase
+  - FastAPI
+  - Google Gemini API
+link: "https://github.com/harshalself/Flashify"
+---
+
+## Overview
+
+Flashify is an AI-powered app that generates flashcards and quizzes from study materials, tracks learning progress, and works across platforms.
+
+## Key Features
+
+- **Flashcard Generation**: Automatically creates flashcards from uploaded content.
+- **Quiz Mode**: Generates quizzes to test knowledge.
+- **Progress Tracking**: Monitors learning and adapts to user needs.
+- **Cross-Platform**: Works on mobile and web.
+
+## Technologies Used
+
+<TechIcons />
+
+- **React Native**
+- **Expo**
+- **TypeScript**
+- **Tailwind CSS**
+- **Supabase**
+- **FastAPI**
+- **Google Gemini API**
+
+## Challenges and Learnings
+
+Integrating AI and cross-platform support was challenging. The project improved my skills in React Native, backend APIs, and AI integration.
+
+## Outcome
+
+Flashify helps users learn efficiently with AI-generated study tools.
+
+---
+
+import { FaReact } from "react-icons/fa";
+import {
+  SiExpo,
+  SiTypescript,
+  SiTailwindcss,
+  SiSupabase,
+  SiFastapi,
+} from "react-icons/si";
+import { TbBrandReactNative } from "react-icons/tb";
+import { SiGoogle } from "react-icons/si";
+
+export function TechIcons() {
+  return (
+    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+      <TbBrandReactNative size={32} title="React Native" />
+      <SiExpo size={32} title="Expo" />
+      <SiTypescript size={32} title="TypeScript" />
+      <SiTailwindcss size={32} title="Tailwind CSS" />
+      <SiSupabase size={32} title="Supabase" />
+      <SiFastapi size={32} title="FastAPI" />
+      <SiGoogle size={32} title="Google Gemini API" />
+    </div>
+  );
+}

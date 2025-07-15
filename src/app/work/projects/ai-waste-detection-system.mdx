@@ -1,0 +1,69 @@
+---
+title: "AI Waste Detection System"
+publishedAt: "2024-04-04"
+summary: "An online machine learning-based platform which accepts values of sensors and then predicts the waste type as dry, wet, or plastic. Features sensor input validation, prediction confidence display, and user-friendly web interface for waste classification."
+images:
+  - "https://raw.githubusercontent.com/harshalself/AI-Waste-Detection-System/refs/heads/main/Screenshot%201.png"
+technologies:
+  - Machine Learning
+  - Python
+  - HTML
+  - CSS
+  - JavaScript
+  - Sensor Integration
+link: "https://github.com/harshalself/AI-Waste-Detection-System"
+---
+
+## Overview
+
+AI Waste Detection System predicts waste type using sensor data and machine learning. It features input validation, prediction confidence, and a user-friendly interface.
+
+## Key Features
+
+- **Sensor Input**: Accepts and validates sensor values.
+- **ML Prediction**: Predicts waste type (dry, wet, plastic) using a trained model.
+- **Confidence Display**: Shows prediction confidence to users.
+- **Web Interface**: Clean, accessible UI for all users.
+
+## Technologies Used
+
+<TechIcons />
+
+- **Machine Learning**
+- **Python**
+- **HTML**
+- **CSS**
+- **JavaScript**
+- **Sensor Integration**
+
+## Challenges and Learnings
+
+Integrating real sensor data and building a robust ML model were key challenges. The project improved my skills in ML, data validation, and UI design.
+
+## Outcome
+
+The system enables efficient, automated waste classification and demonstrates the power of ML in environmental tech.
+
+---
+
+import {
+  FaPython,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaMicrochip,
+} from "react-icons/fa";
+import { SiTensorflow } from "react-icons/si";
+
+export function TechIcons() {
+  return (
+    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+      <SiTensorflow size={32} title="Machine Learning" />
+      <FaPython size={32} title="Python" />
+      <FaHtml5 size={32} title="HTML" />
+      <FaCss3Alt size={32} title="CSS" />
+      <FaJs size={32} title="JavaScript" />
+      <FaMicrochip size={32} title="Sensor Integration" />
+    </div>
+  );
+}
