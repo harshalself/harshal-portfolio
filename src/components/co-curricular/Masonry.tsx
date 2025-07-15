@@ -78,6 +78,7 @@ interface Item {
   url: string;
   height?: number; // Make height optional
   widthSpan?: number; // Add widthSpan for dynamic width
+  title: string; // Add title to the item interface
 }
 
 interface MasonryProps {
@@ -110,7 +111,7 @@ const Masonry: React.FC<MasonryProps> = ({
       "(min-width:600px)",
       "(min-width:400px)",
     ],
-    [5, 4, 3, 2],
+    [4, 3, 2, 1],
     1
   );
 
@@ -297,8 +298,14 @@ const Masonry: React.FC<MasonryProps> = ({
     }
   };
 
+  const maxHeight =
+    grid.length > 0 ? Math.max(...grid.map((item) => item.y + item.h)) : 0;
+
   return (
-    <div ref={containerRef} className={styles.list}>
+    <div
+      ref={containerRef}
+      className={styles.list}
+      style={{ height: maxHeight }}>
       {grid.map((item) => {
         return (
           <div
@@ -328,6 +335,7 @@ const Masonry: React.FC<MasonryProps> = ({
                   }}
                 />
               )}
+              <div className={styles["item-title"]}>{item.title}</div>
             </div>
           </div>
         );

@@ -23,7 +23,6 @@ export default function CoCurricular() {
     title: post.metadata.title,
     // height removed for dynamic Masonry
   }));
-  console.log("Masonry items:", items);
   return (
     <Column maxWidth="s">
       <Schema
@@ -42,7 +41,13 @@ export default function CoCurricular() {
       <Heading marginBottom="l" variant="display-strong-s">
         Beyond the Syllabus. . .
       </Heading>
-      <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%" }}>
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          width: "100%",
+          paddingBottom: "80px",
+        }}>
         <Masonry
           items={items}
           ease="power3.out"
