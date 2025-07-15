@@ -15,11 +15,12 @@ const person = {
 
 const newsletter = {
   display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
+  title: <>Want to work together or collab on a project?</>,
   description: (
     <>
-      I occasionally write about design, technology, and share thoughts on the
-      intersection of creativity and engineering.
+      I'm always open to new opportunities, collaborations, or interesting
+      projects. If you'd like to connect, discuss an idea, or work together,
+      feel free to reach out!
     </>
   ),
 };
@@ -56,24 +57,11 @@ const home = {
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
   headline: <>Bridging Code, Creativity & Intelligence</>,
-  featured: {
-    display: true,
-    title: (
-      <>
-        Recent project: <strong className="ml-4">Nexume</strong>
-      </>
-    ),
-    href: "/work/building-once-ui-a-customizable-design-system",
-  },
   subline: (
     <>
-      I'm Selene, a design engineer at{" "}
-      <Logo
-        icon="/trademarks/wordmark-dark.svg"
-        style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.25em" }}
-      />
-      , where I craft intuitive
-      <br /> user experiences. After hours, I build my own projects.
+      I'm Harshal, building web experiences and
+      <br />
+      automations powered by AI.
     </>
   ),
 };

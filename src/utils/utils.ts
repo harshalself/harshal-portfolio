@@ -11,14 +11,19 @@ type Team = {
 
 type Metadata = {
   title: string;
-  publishedAt: string;
-  summary: string;
+  publishedAt?: string;
+  summary?: string;
   image?: string;
   images: string[];
   tag?: string;
   team: Team[];
   link?: string;
   technologies?: string[];
+  // Extra-curricular fields
+  category?: string;
+  description?: string;
+  duration?: string;
+  achievement?: string;
 };
 
 import { notFound } from "next/navigation";
@@ -49,6 +54,11 @@ function readMDXFile(filePath: string) {
     team: data.team || [],
     link: data.link || "",
     technologies: data.technologies || [],
+    // Extra-curricular fields
+    category: data.category || "",
+    description: data.description || "",
+    duration: data.duration || "",
+    achievement: data.achievement || "",
   };
 
   return { metadata, content };

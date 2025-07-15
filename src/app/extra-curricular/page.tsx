@@ -1,6 +1,7 @@
-import { Flex, Meta, Schema } from "@once-ui-system/core";
-import MasonryGrid from "@/components/extra-curricular/MasonryGrid";
+import { Flex, Meta, Schema, Grid } from "@once-ui-system/core";
+import { ExtraCurricularCard } from "@/components/extra-curricular/ExtraCurricularCard";
 import { baseURL, extraCurricular, person } from "@/resources";
+import { getPosts } from "@/utils/utils";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -13,8 +14,9 @@ export async function generateMetadata() {
 }
 
 export default function ExtraCurricular() {
+  const posts = getPosts(["src", "app", "extra-curricular", "posts"]);
   return (
-    <Flex maxWidth="l">
+    <Flex maxWidth="l" direction="column">
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -28,7 +30,17 @@ export default function ExtraCurricular() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <MasonryGrid />
+      <Grid columns="2" mobileColumns="1" fillWidth gap="l" marginBottom="40">
+        {posts.map((post) => (
+          <ExtraCurricularCard
+            key={post.slug}
+            title={post.metadata.title || ""}
+            duration={post.metadata.duration || ""}
+            description={post.metadata.description || ""}
+            achievement={post.metadata.achievement || ""}
+          />
+        ))}
+      </Grid>
     </Flex>
   );
 }
