@@ -2,6 +2,7 @@ import { Flex, Meta, Schema, Grid, Heading } from "@once-ui-system/core";
 import { ExtraCurricularCard } from "@/components/extra-curricular/ExtraCurricularCard";
 import { baseURL, extraCurricular, person } from "@/resources";
 import { getPosts } from "@/utils/utils";
+import { RevealFx } from "@once-ui-system/core";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -30,9 +31,17 @@ export default function ExtraCurricular() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Heading marginBottom="l" variant="display-strong-s">
-        Beyond the Code. . .
-      </Heading>
+      <div style={{ maxWidth: 1000, margin: "0 auto", width: "100%" }}>
+        <RevealFx
+          translateY="4"
+          fillWidth
+          horizontal="start"
+          paddingBottom="16">
+          <Heading marginBottom="l" variant="display-strong-s">
+            Beyond the Code. . .
+          </Heading>
+        </RevealFx>
+      </div>
       <Grid
         columns="2"
         mobileColumns="1"

@@ -2,6 +2,7 @@ import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
 import { baseURL, coCurricular, person, newsletter } from "@/resources";
 import Masonry from "@/components/co-curricular/Masonry";
 import { getPosts } from "@/utils/utils";
+import { RevealFx } from "@once-ui-system/core";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -24,7 +25,7 @@ export default function CoCurricular() {
     // height removed for dynamic Masonry
   }));
   return (
-    <Column maxWidth="s">
+    <Column maxWidth={1800}>
       <Schema
         as="blogPosting"
         baseURL={baseURL}
@@ -38,12 +39,20 @@ export default function CoCurricular() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Heading marginBottom="l" variant="display-strong-s">
-        Beyond the Syllabus. . .
-      </Heading>
+      <div style={{ maxWidth: 1000, margin: "0 auto", width: "100%" }}>
+        <RevealFx
+          translateY="4"
+          fillWidth
+          horizontal="start"
+          paddingBottom="16">
+          <Heading marginBottom="l" variant="display-strong-s">
+            Beyond the Syllabus. . .
+          </Heading>
+        </RevealFx>
+      </div>
       <div
         style={{
-          maxWidth: 1200,
+          maxWidth: 1000,
           margin: "0 auto",
           width: "100%",
           paddingBottom: "80px",

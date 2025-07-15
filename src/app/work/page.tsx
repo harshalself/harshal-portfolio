@@ -1,6 +1,7 @@
-import { Column, Meta, Schema } from "@once-ui-system/core";
+import { Column, Meta, Schema, Heading } from "@once-ui-system/core";
 import { baseURL, about, person, work } from "@/resources";
 import { Projects } from "@/components/work/Projects";
+import { RevealFx } from "@once-ui-system/core";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -28,6 +29,17 @@ export default function Work() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
+      <div style={{ maxWidth: 950, margin: "0 auto", width: "100%" }}>
+        <RevealFx
+          translateY="4"
+          fillWidth
+          horizontal="start"
+          paddingBottom="16">
+          <Heading marginBottom="l" variant="display-strong-s">
+            From Idea to Execution. . .
+          </Heading>
+        </RevealFx>
+      </div>
       <Projects />
     </Column>
   );

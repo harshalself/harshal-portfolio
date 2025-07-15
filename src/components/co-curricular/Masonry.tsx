@@ -118,38 +118,42 @@ const Masonry: React.FC<MasonryProps> = ({
   const gap = 16; // px, adjust as needed
   const [containerRef, { width }] = useMeasure<HTMLDivElement>();
   const [imagesReady, setImagesReady] = useState(false);
+  const [aspectRatios, setAspectRatios] = useState<{ [id: string]: number }>(
+    {}
+  );
 
-  const getInitialPosition = (item: any) => {
-    const containerRect = containerRef.current?.getBoundingClientRect();
-    if (!containerRect) return { x: item.x, y: item.y };
-
-    let direction = animateFrom;
-
-    if (animateFrom === "random") {
-      const directions = ["top", "bottom", "left", "right"];
-      direction = directions[
-        Math.floor(Math.random() * directions.length)
-      ] as typeof animateFrom;
-    }
-
-    switch (direction) {
-      case "top":
-        return { x: item.x, y: -200 };
-      case "bottom":
-        return { x: item.x, y: window.innerHeight + 200 };
-      case "left":
-        return { x: -200, y: item.y };
-      case "right":
-        return { x: window.innerWidth + 200, y: item.y };
-      case "center":
-        return {
-          x: containerRect.width / 2 - item.w / 2,
-          y: containerRect.height / 2 - item.h / 2,
-        };
-      default:
-        return { x: item.x, y: item.y + 100 };
-    }
-  };
+  // Preload images and get aspect ratios
+  useEffect(() => {
+    let isMounted = true;
+    const loadImages = async () => {
+      const ratios: { [id: string]: number } = {};
+      await Promise.all(
+        items.map(
+          (item) =>
+            new Promise<void>((resolve) => {
+              const img = new window.Image();
+              img.src = item.img;
+              img.onload = () => {
+                ratios[item.id] =
+                  img.naturalWidth && img.naturalHeight
+                    ? img.naturalHeight / img.naturalWidth
+                    : 1;
+                resolve();
+              };
+              img.onerror = () => {
+                ratios[item.id] = 1;
+                resolve();
+              };
+            })
+        )
+      );
+      if (isMounted) setAspectRatios(ratios);
+    };
+    loadImages();
+    return () => {
+      isMounted = false;
+    };
+  }, [items]);
 
   useEffect(() => {
     preloadImages(items.map((i) => i.img)).then(() => setImagesReady(true));
@@ -180,12 +184,21 @@ const Masonry: React.FC<MasonryProps> = ({
         }
       }
       const x = col * (columnWidth + gap);
-      // Assign a random height between 300 and 500 if not provided
-      const rawHeight =
-        typeof child.height === "number"
-          ? child.height
-          : Math.floor(Math.random() * 200) + 300;
-      const height = rawHeight / 2;
+      // Use aspect ratio if available, otherwise fallback to random height
+      const aspect = aspectRatios[child.id];
+      let height;
+      if (aspect) {
+        // Clamp aspect ratio to avoid extreme values
+        const clamped = Math.max(0.7, Math.min(aspect, 1.7));
+        height = columnWidth * actualSpan * clamped;
+      } else {
+        // Fallback: random height
+        const rawHeight =
+          typeof child.height === "number"
+            ? child.height
+            : Math.floor(Math.random() * 200) + 300;
+        height = rawHeight / 2;
+      }
       const y = minY;
       // Update the heights for the columns this item spans
       for (let i = col; i < col + actualSpan; i++) {
@@ -200,7 +213,7 @@ const Masonry: React.FC<MasonryProps> = ({
         widthSpan: actualSpan,
       };
     });
-  }, [columns, items, width]);
+  }, [columns, items, width, aspectRatios]);
 
   const hasMounted = useRef(false);
 
@@ -295,6 +308,38 @@ const Masonry: React.FC<MasonryProps> = ({
           duration: 0.3,
         });
       }
+    }
+  };
+
+  const getInitialPosition = (item: any) => {
+    const containerRect = containerRef.current?.getBoundingClientRect();
+    if (!containerRect) return { x: item.x, y: item.y };
+
+    let direction = animateFrom;
+
+    if (animateFrom === "random") {
+      const directions = ["top", "bottom", "left", "right"];
+      direction = directions[
+        Math.floor(Math.random() * directions.length)
+      ] as typeof animateFrom;
+    }
+
+    switch (direction) {
+      case "top":
+        return { x: item.x, y: -200 };
+      case "bottom":
+        return { x: item.x, y: window.innerHeight + 200 };
+      case "left":
+        return { x: -200, y: item.y };
+      case "right":
+        return { x: window.innerWidth + 200, y: item.y };
+      case "center":
+        return {
+          x: containerRect.width / 2 - item.w / 2,
+          y: containerRect.height / 2 - item.h / 2,
+        };
+      default:
+        return { x: item.x, y: item.y + 100 };
     }
   };
 
