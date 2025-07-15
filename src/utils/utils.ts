@@ -24,6 +24,9 @@ type Metadata = {
   description?: string;
   duration?: string;
   achievement?: string;
+  // Add these for co-curricular
+  id?: string | number;
+  img?: string;
 };
 
 import { notFound } from "next/navigation";
@@ -59,6 +62,7 @@ function readMDXFile(filePath: string) {
     description: data.description || "",
     duration: data.duration || "",
     achievement: data.achievement || "",
+    img: data.img || "", // Add this line to support Masonry images
   };
 
   return { metadata, content };

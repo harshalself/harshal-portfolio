@@ -1,7 +1,7 @@
 import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
-import { Mailchimp } from "@/components";
-import { Posts } from "@/components/co-curricular/Posts";
 import { baseURL, coCurricular, person, newsletter } from "@/resources";
+import Masonry from "@/components/co-curricular/Masonry";
+import { getPosts } from "@/utils/utils";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -14,6 +14,16 @@ export async function generateMetadata() {
 }
 
 export default function CoCurricular() {
+  // Dynamically load all MDX posts from the posts folder
+  const posts = getPosts(["src", "app", "co-curricular", "posts"]);
+  const items = posts.map((post) => ({
+    id: post.metadata.id?.toString() || post.slug,
+    img: post.metadata.img || "",
+    url: post.metadata.link || "",
+    title: post.metadata.title,
+    // height removed for dynamic Masonry
+  }));
+  console.log("Masonry items:", items);
   return (
     <Column maxWidth="s">
       <Schema
@@ -30,14 +40,21 @@ export default function CoCurricular() {
         }}
       />
       <Heading marginBottom="l" variant="display-strong-s">
-        {coCurricular.title}
+        Beyond the Syllabus. . .
       </Heading>
-      <Column fillWidth flex={1}>
-        <Posts range={[1, 1]} thumbnail direction="column" />
-        <Posts range={[2, 3]} thumbnail />
-        <Posts range={[4]} columns="2" />
-      </Column>
-      {newsletter.display && <Mailchimp newsletter={newsletter} />}
+      <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%" }}>
+        <Masonry
+          items={items}
+          ease="power3.out"
+          duration={0.6}
+          stagger={0.05}
+          animateFrom="bottom"
+          scaleOnHover={true}
+          hoverScale={0.95}
+          blurToFocus={true}
+          colorShiftOnHover={true}
+        />
+      </div>
     </Column>
   );
 }

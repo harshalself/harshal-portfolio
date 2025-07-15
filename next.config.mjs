@@ -14,7 +14,21 @@ const nextConfig = {
     silenceDeprecations: ["legacy-js-api"],
   },
   images: {
-    domains: ["raw.githubusercontent.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "media.licdn.com",
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+      },
+      // Add more domains as needed
+    ],
   },
 };
 

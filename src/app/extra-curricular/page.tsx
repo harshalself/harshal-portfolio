@@ -1,4 +1,4 @@
-import { Flex, Meta, Schema, Grid } from "@once-ui-system/core";
+import { Flex, Meta, Schema, Grid, Heading } from "@once-ui-system/core";
 import { ExtraCurricularCard } from "@/components/extra-curricular/ExtraCurricularCard";
 import { baseURL, extraCurricular, person } from "@/resources";
 import { getPosts } from "@/utils/utils";
@@ -16,7 +16,7 @@ export async function generateMetadata() {
 export default function ExtraCurricular() {
   const posts = getPosts(["src", "app", "extra-curricular", "posts"]);
   return (
-    <Flex maxWidth="l" direction="column">
+    <Flex maxWidth="m" direction="column" horizontal="center">
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -30,7 +30,16 @@ export default function ExtraCurricular() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Grid columns="2" mobileColumns="1" fillWidth gap="l" marginBottom="40">
+      <Heading marginBottom="l" variant="display-strong-s">
+        Beyond the Code. . .
+      </Heading>
+      <Grid
+        columns="2"
+        mobileColumns="1"
+        fillWidth
+        gap="l"
+        marginBottom="40"
+        maxWidth={832}>
         {posts.map((post) => (
           <ExtraCurricularCard
             key={post.slug}

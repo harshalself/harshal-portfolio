@@ -1,0 +1,45 @@
+.list {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+}
+
+.item-wrapper {
+  position: absolute;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s;
+}
+
+.item-wrapper:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+}
+
+.item-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  transition: filter 0.3s;
+  position: relative;
+}
+
+.color-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 150, 0.5),
+    rgba(0, 150, 255, 0.5)
+  );
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 8px;
+  transition: opacity 0.3s;
+}
