@@ -1,0 +1,72 @@
+@use "../breakpoints.scss" as breakpoints;
+
+.hover {
+  transition: var(--transition-micro-medium);
+
+  &:hover {
+    transform: translateX(var(--static-space-4));
+  }
+}
+
+.avatar {
+  position: sticky;
+  height: fit-content;
+  top: var(--static-space-64);
+}
+
+.skillGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.skillItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.5rem;
+  background: none;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  transition: background 0.2s;
+}
+
+.skillItem svg {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--about-skill-icon, #fff);
+}
+
+.skillItem span {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--about-skill-text, #fff);
+}
+
+@media (max-width: breakpoints.$s) {
+  .avatar {
+    top: auto;
+  }
+
+  .textAlign {
+    text-align: center;
+  }
+
+  .blockAlign {
+    align-self: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .skillGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .skillGrid {
+    grid-template-columns: 1fr;
+  }
+}
