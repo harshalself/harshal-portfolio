@@ -1,36 +1,36 @@
 import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
 import { Mailchimp } from "@/components";
-import { Posts } from "@/components/blog/Posts";
-import { baseURL, blog, person, newsletter } from "@/resources";
+import { Posts } from "@/components/co-curricular/Posts";
+import { baseURL, coCurricular, person, newsletter } from "@/resources";
 
 export async function generateMetadata() {
   return Meta.generate({
-    title: blog.title,
-    description: blog.description,
+    title: coCurricular.title,
+    description: coCurricular.description,
     baseURL: baseURL,
     image: "/images/og/home.jpg",
-    path: blog.path,
+    path: coCurricular.path,
   });
 }
 
-export default function Blog() {
+export default function CoCurricular() {
   return (
     <Column maxWidth="s">
       <Schema
         as="blogPosting"
         baseURL={baseURL}
-        title={blog.title}
-        description={blog.description}
-        path={blog.path}
+        title={coCurricular.title}
+        description={coCurricular.description}
+        path={coCurricular.path}
         image="/images/og/home.jpg"
         author={{
           name: person.name,
-          url: `${baseURL}/blog`,
+          url: `${baseURL}/co-curricular`,
           image: `${baseURL}${person.avatar}`,
         }}
       />
       <Heading marginBottom="l" variant="display-strong-s">
-        {blog.title}
+        {coCurricular.title}
       </Heading>
       <Column fillWidth flex={1}>
         <Posts range={[1, 1]} thumbnail direction="column" />

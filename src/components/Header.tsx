@@ -10,9 +10,9 @@ import {
   display,
   person,
   about,
-  blog,
+  coCurricular,
   work,
-  gallery,
+  extraCurricular,
 } from "@/resources";
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Header.module.scss";
@@ -141,37 +141,37 @@ export const Header = () => {
                   />
                 </>
               )}
-              {routes["/blog"] && (
+              {routes["/co-curricular"] && (
                 <>
                   <ToggleButton
                     className="s-flex-hide"
                     prefixIcon="book"
-                    href="/blog"
-                    label={blog.label}
-                    selected={pathname.startsWith("/blog")}
+                    href="/co-curricular"
+                    label={coCurricular.label}
+                    selected={pathname.startsWith("/co-curricular")}
                   />
                   <ToggleButton
                     className="s-flex-show"
                     prefixIcon="book"
-                    href="/blog"
-                    selected={pathname.startsWith("/blog")}
+                    href="/co-curricular"
+                    selected={pathname.startsWith("/co-curricular")}
                   />
                 </>
               )}
-              {routes["/gallery"] && (
+              {routes["/extra-curricular"] && (
                 <>
                   <ToggleButton
                     className="s-flex-hide"
-                    prefixIcon="gallery"
-                    href="/gallery"
-                    label={gallery.label}
-                    selected={pathname.startsWith("/gallery")}
+                    prefixIcon="extraCurricular"
+                    href="/extra-curricular"
+                    label={extraCurricular.label}
+                    selected={pathname.startsWith("/extra-curricular")}
                   />
                   <ToggleButton
                     className="s-flex-show"
-                    prefixIcon="gallery"
-                    href="/gallery"
-                    selected={pathname.startsWith("/gallery")}
+                    prefixIcon="extraCurricular"
+                    href="/extra-curricular"
+                    selected={pathname.startsWith("/extra-curricular")}
                   />
                 </>
               )}

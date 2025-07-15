@@ -7,8 +7,8 @@ const routes = {
   "/": true,
   "/about": true,
   "/work": true,
-  "/blog": true,
-  "/gallery": true,
+  "/co-curricular": true,
+  "/extra-curricular": true,
 };
 
 const display = {

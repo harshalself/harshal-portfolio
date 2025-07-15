@@ -1,0 +1,67 @@
+---
+title: "Resume Matcher Project"
+publishedAt: "2024-04-01"
+summary: "A resume matching system that uses AI to match candidate resumes with job descriptions and calculate match percentages. Features include resume parsing and analysis, job description matching, real-time updates, user authentication, and job application tracking."
+images:
+  - "https://raw.githubusercontent.com/harshalself/Resume_Matcher/main/Screenshot.png"
+technologies:
+  - Python
+  - Flask
+  - React
+  - Node.js
+  - Google Gemini AI
+  - Supabase
+link: "https://github.com/harshalself/Resume_Matcher"
+---
+
+## Overview
+
+Resume Matcher is an AI-powered system that matches candidate resumes with job descriptions and calculates match percentages. It features resume parsing and analysis, job description matching, real-time updates, user authentication, and job application tracking.
+
+## Key Features
+
+- **Resume Parsing & Analysis**: Extracts and analyzes key information from uploaded resumes.
+- **Job Description Matching**: Uses AI to compare resumes with job descriptions and provide a match score.
+- **Real-Time Updates**: Provides instant feedback and updates to users.
+- **User Authentication**: Secure login and registration for candidates and recruiters.
+- **Job Application Tracking**: Allows users to track their job applications and statuses.
+
+## Technologies Used
+
+<TechIcons />
+
+- **Python**
+- **Flask**
+- **React**
+- **Node.js**
+- **Google Gemini AI**
+- **Supabase**
+
+## Challenges and Learnings
+
+Building an accurate matching algorithm required extensive experimentation with different AI models and data preprocessing techniques. Integrating real-time updates and authentication added complexity but improved the user experience.
+
+## Outcome
+
+The Resume Matcher Project streamlines the recruitment process by providing intelligent, automated resume-job matching. It saves time for both candidates and recruiters and increases the chances of finding the right fit.
+
+---
+
+import { FaPython, FaReact, FaNodeJs } from "react-icons/fa";
+import { SiFlask, SiSupabase } from "react-icons/si";
+import { SiGoogle } from "react-icons/si";
+
+export function TechIcons() {
+  return (
+    <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+      <FaPython size={32} title="Python" />
+      <SiFlask size={32} title="Flask" />
+      <FaReact size={32} title="React" />
+      <FaNodeJs size={32} title="Node.js" />
+      <SiGoogle size={32} title="Google Gemini AI" />
+      <SiSupabase size={32} title="Supabase" />
+    </div>
+  );
+
+
+}

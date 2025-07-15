@@ -12,13 +12,13 @@ import {
   Row,
   Text,
 } from "@once-ui-system/core";
-import { baseURL, about, blog, person } from "@/resources";
+import { baseURL, about, coCurricular, person } from "@/resources";
 import { formatDate } from "@/utils/formatDate";
 import { getPosts } from "@/utils/utils";
 import { Metadata } from "next";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "blog", "posts"]);
+  const posts = getPosts(["src", "app", "co-curricular", "posts"]);
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -34,7 +34,7 @@ export async function generateMetadata({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  const posts = getPosts(["src", "app", "blog", "posts"]);
+  const posts = getPosts(["src", "app", "co-curricular", "posts"]);
   let post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
@@ -45,7 +45,7 @@ export async function generateMetadata({
     baseURL: baseURL,
     image:
       post.metadata.image || `/api/og/generate?title=${post.metadata.title}`,
-    path: `${blog.path}/${post.slug}`,
+    path: `${coCurricular.path}/${post.slug}`,
   });
 }
 
@@ -59,7 +59,7 @@ export default async function Blog({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  let post = getPosts(["src", "app", "blog", "posts"]).find(
+  let post = getPosts(["src", "app", "co-curricular", "posts"]).find(
     (post) => post.slug === slugPath
   );
 
@@ -80,7 +80,7 @@ export default async function Blog({
           <Schema
             as="blogPosting"
             baseURL={baseURL}
-            path={`${blog.path}/${post.slug}`}
+            path={`${coCurricular.path}/${post.slug}`}
             title={post.metadata.title}
             description={post.metadata.summary}
             datePublished={post.metadata.publishedAt}
@@ -99,7 +99,7 @@ export default async function Blog({
           />
           <Button
             data-border="rounded"
-            href="/blog"
+            href="/co-curricular"
             weight="default"
             variant="tertiary"
             size="s"

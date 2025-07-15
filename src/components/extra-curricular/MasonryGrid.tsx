@@ -3,7 +3,7 @@
 import Masonry from "react-masonry-css";
 import { Media } from "@once-ui-system/core";
 import styles from "./Gallery.module.scss";
-import { gallery } from "@/resources";
+import { extraCurricular } from "@/resources";
 
 export default function MasonryGrid() {
   const breakpointColumnsObj = {
@@ -15,9 +15,8 @@ export default function MasonryGrid() {
     <Masonry
       breakpointCols={breakpointColumnsObj}
       className={styles.masonryGrid}
-      columnClassName={styles.masonryGridColumn}
-    >
-      {gallery.images.map((image, index) => (
+      columnClassName={styles.masonryGridColumn}>
+      {extraCurricular.images.map((image, index) => (
         <Media
           priority={index < 10}
           sizes="(max-width: 560px) 100vw, 50vw"
