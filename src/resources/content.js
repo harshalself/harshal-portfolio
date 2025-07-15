@@ -41,7 +41,7 @@ const social = [
   {
     name: "Instagram",
     icon: "instagram",
-    link: "https://instagram.com/harshal_patil.knowme?igshid=ZDdkNTZiNTM=",
+    link: "https://www.instagram.com/harshal_patil.mp4?igsh=MTRtZXk1NGRhdDNqMQ%3D%3D&utm_source=qr",
   },
   {
     name: "Email",

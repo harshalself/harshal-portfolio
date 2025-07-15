@@ -3,6 +3,7 @@ import { ExtraCurricularCard } from "@/components/extra-curricular/ExtraCurricul
 import { baseURL, extraCurricular, person } from "@/resources";
 import { getPosts } from "@/utils/utils";
 import { RevealFx } from "@once-ui-system/core";
+import ScrollRevealCard from "@/components/ScrollRevealCard";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -15,7 +16,12 @@ export async function generateMetadata() {
 }
 
 export default function ExtraCurricular() {
-  const posts = getPosts(["src", "app", "extra-curricular", "posts"]);
+  let posts = getPosts(["src", "app", "extra-curricular", "posts"]);
+  posts = posts.sort((a, b) => {
+    const orderA = a.metadata.order ?? 9999;
+    const orderB = b.metadata.order ?? 9999;
+    return orderA - orderB;
+  });
   return (
     <Flex maxWidth="m" direction="column" horizontal="center">
       <Schema
@@ -50,13 +56,14 @@ export default function ExtraCurricular() {
         marginBottom="40"
         maxWidth={832}>
         {posts.map((post) => (
-          <ExtraCurricularCard
-            key={post.slug}
-            title={post.metadata.title || ""}
-            duration={post.metadata.duration || ""}
-            description={post.metadata.description || ""}
-            achievement={post.metadata.achievement || ""}
-          />
+          <ScrollRevealCard key={post.slug} duration={0.4}>
+            <ExtraCurricularCard
+              title={post.metadata.title || ""}
+              duration={post.metadata.duration || ""}
+              description={post.metadata.description || ""}
+              achievement={post.metadata.achievement || ""}
+            />
+          </ScrollRevealCard>
         ))}
       </Grid>
     </Flex>

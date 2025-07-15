@@ -11,6 +11,7 @@ import {
   Text,
   Meta,
   Schema,
+  RevealFx,
 } from "@once-ui-system/core";
 import { baseURL, about, person, social } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
@@ -46,6 +47,8 @@ import {
   SiAdobe,
 } from "react-icons/si";
 import { MdImage } from "react-icons/md";
+import ScrollFloat from "@/components/ScrollFloat";
+import ScrollRevealCard from "@/components/ScrollRevealCard";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -217,150 +220,180 @@ export default function About() {
                 />
               </Flex>
             )}
-            <Heading className={styles.textAlign} variant="display-strong-xl">
-              {person.name}
-            </Heading>
-            <Text
-              className={styles.textAlign}
-              variant="display-default-xs"
-              onBackground="neutral-weak">
-              {person.role}
-            </Text>
+            <RevealFx
+              translateY="4"
+              fillWidth
+              horizontal="start"
+              paddingBottom="16">
+              <Heading className={styles.textAlign} variant="display-strong-xl">
+                {person.name}
+              </Heading>
+            </RevealFx>
+            <RevealFx
+              translateY="4"
+              fillWidth
+              horizontal="start"
+              paddingBottom="16">
+              <Text
+                className={styles.textAlign}
+                variant="display-default-xs"
+                onBackground="neutral-weak">
+                {person.role}
+              </Text>
+            </RevealFx>
             {social.length > 0 && (
-              <Flex
-                className={styles.blockAlign}
-                paddingTop="20"
-                paddingBottom="8"
-                gap="8"
-                wrap
-                horizontal="center"
-                fitWidth
-                data-border="rounded">
-                {social.map(
-                  (item) =>
-                    item.link && (
-                      <React.Fragment key={item.name}>
-                        <Button
-                          className="s-flex-hide"
-                          key={item.name}
-                          href={item.link}
-                          size="s"
-                          weight="default"
-                          variant="secondary">
-                          {socialIconMap[item.name] && (
-                            <span
-                              style={{
-                                marginRight: 8,
-                                display: "inline-flex",
-                                verticalAlign: "middle",
-                              }}>
-                              {socialIconMap[item.name]}
-                            </span>
-                          )}
-                          {item.name}
-                        </Button>
-                        <IconButton
-                          className="s-flex-show"
-                          size="l"
-                          key={`${item.name}-icon`}
-                          href={item.link}
-                          variant="secondary">
-                          {socialIconMap[item.name]}
-                        </IconButton>
-                      </React.Fragment>
-                    )
-                )}
-              </Flex>
+              <RevealFx
+                translateY="4"
+                fillWidth
+                horizontal="start"
+                paddingBottom="16">
+                <Flex
+                  className={styles.blockAlign}
+                  paddingTop="20"
+                  paddingBottom="8"
+                  gap="8"
+                  wrap
+                  horizontal="center"
+                  fitWidth
+                  data-border="rounded">
+                  {social.map(
+                    (item) =>
+                      item.link && (
+                        <React.Fragment key={item.name}>
+                          <Button
+                            className="s-flex-hide"
+                            key={item.name}
+                            href={item.link}
+                            size="s"
+                            weight="default"
+                            variant="secondary">
+                            {socialIconMap[item.name] && (
+                              <span
+                                style={{
+                                  marginRight: 8,
+                                  display: "inline-flex",
+                                  verticalAlign: "middle",
+                                }}>
+                                {socialIconMap[item.name]}
+                              </span>
+                            )}
+                            {item.name}
+                          </Button>
+                          <IconButton
+                            className="s-flex-show"
+                            size="l"
+                            key={`${item.name}-icon`}
+                            href={item.link}
+                            variant="secondary">
+                            {socialIconMap[item.name]}
+                          </IconButton>
+                        </React.Fragment>
+                      )
+                  )}
+                </Flex>
+              </RevealFx>
             )}
           </Column>
 
           {about.intro.display && (
-            <Column
-              textVariant="body-default-l"
+            <RevealFx
+              translateY="4"
               fillWidth
-              gap="m"
-              marginBottom="xl">
-              {about.intro.description}
-            </Column>
+              horizontal="start"
+              paddingBottom="16">
+              <Column
+                textVariant="body-default-l"
+                fillWidth
+                gap="m"
+                marginBottom="xl">
+                {about.intro.description}
+              </Column>
+            </RevealFx>
           )}
 
           {about.work.display && (
             <>
-              <Heading
-                as="h2"
-                id={about.work.title}
-                variant="display-strong-s"
-                marginBottom="m">
-                {about.work.title}
-              </Heading>
+              <ScrollRevealCard duration={0.4}>
+                <Heading
+                  as="h2"
+                  id={about.work.title}
+                  variant="display-strong-s"
+                  marginBottom="m">
+                  {about.work.title}
+                </Heading>
+              </ScrollRevealCard>
               <Column fillWidth gap="l" marginBottom="40">
                 {about.work.experiences.map((experience, index) => (
-                  <Column
-                    key={`${experience.company}-${experience.role}-${index}`}
-                    fillWidth>
-                    <Flex
-                      fillWidth
-                      horizontal="space-between"
-                      vertical="end"
-                      marginBottom="4">
-                      <Text id={experience.company} variant="heading-strong-l">
-                        {experience.company}
-                      </Text>
-                      <Text
-                        variant="heading-default-xs"
-                        onBackground="neutral-weak">
-                        {experience.timeframe}
-                      </Text>
-                    </Flex>
-                    <Text
-                      variant="body-default-s"
-                      onBackground="brand-weak"
-                      marginBottom="m">
-                      {experience.role}
-                    </Text>
-                    <Column as="ul" gap="16">
-                      {experience.achievements.map(
-                        (achievement: JSX.Element, index: number) => (
-                          <Text
-                            as="li"
-                            variant="body-default-m"
-                            key={`${experience.company}-${index}`}>
-                            {achievement}
-                          </Text>
-                        )
-                      )}
-                    </Column>
-                    {experience.images.length > 0 && (
+                  <ScrollRevealCard
+                    duration={0.4}
+                    key={`${experience.company}-${experience.role}-${index}`}>
+                    <Column fillWidth>
                       <Flex
                         fillWidth
-                        paddingTop="m"
-                        paddingLeft="40"
-                        gap="12"
-                        wrap>
-                        {experience.images.map((image, index) => (
-                          <Flex
-                            key={index}
-                            border="neutral-medium"
-                            radius="m"
-                            //@ts-ignore
-                            minWidth={image.width}
-                            //@ts-ignore
-                            height={image.height}>
-                            <Media
-                              enlarge
+                        horizontal="space-between"
+                        vertical="end"
+                        marginBottom="4">
+                        <Text
+                          id={experience.company}
+                          variant="heading-strong-l">
+                          {experience.company}
+                        </Text>
+                        <Text
+                          variant="heading-default-xs"
+                          onBackground="neutral-weak">
+                          {experience.timeframe}
+                        </Text>
+                      </Flex>
+                      <Text
+                        variant="body-default-s"
+                        onBackground="brand-weak"
+                        marginBottom="m">
+                        {experience.role}
+                      </Text>
+                      <Column as="ul" gap="16">
+                        {experience.achievements.map(
+                          (achievement: JSX.Element, index: number) => (
+                            <Text
+                              as="li"
+                              variant="body-default-m"
+                              key={`${experience.company}-${index}`}>
+                              {achievement}
+                            </Text>
+                          )
+                        )}
+                      </Column>
+                      {experience.images.length > 0 && (
+                        <Flex
+                          fillWidth
+                          paddingTop="m"
+                          paddingLeft="40"
+                          gap="12"
+                          wrap>
+                          {experience.images.map((image, index) => (
+                            <Flex
+                              key={index}
+                              border="neutral-medium"
                               radius="m"
                               //@ts-ignore
-                              sizes={image.width.toString()}
+                              minWidth={image.width}
                               //@ts-ignore
-                              alt={image.alt}
-                              //@ts-ignore
-                              src={image.src}
-                            />
-                          </Flex>
-                        ))}
-                      </Flex>
-                    )}
-                  </Column>
+                              height={image.height}>
+                              <Media
+                                enlarge
+                                radius="m"
+                                //@ts-ignore
+                                sizes={image.width.toString()}
+                                //@ts-ignore
+                                alt={image.alt}
+                                //@ts-ignore
+                                src={image.src}
+                              />
+                            </Flex>
+                          ))}
+                        </Flex>
+                      )}
+                    </Column>
+                  </ScrollRevealCard>
                 ))}
               </Column>
             </>
@@ -368,28 +401,31 @@ export default function About() {
 
           {about.studies.display && (
             <>
-              <Heading
-                as="h2"
-                id={about.studies.title}
-                variant="display-strong-s"
-                marginBottom="m">
-                {about.studies.title}
-              </Heading>
+              <ScrollRevealCard duration={0.4}>
+                <Heading
+                  as="h2"
+                  id={about.studies.title}
+                  variant="display-strong-s"
+                  marginBottom="m">
+                  {about.studies.title}
+                </Heading>
+              </ScrollRevealCard>
               <Column fillWidth gap="l" marginBottom="40">
                 {about.studies.institutions.map((institution, index) => (
-                  <Column
-                    key={`${institution.name}-${index}`}
-                    fillWidth
-                    gap="4">
-                    <Text id={institution.name} variant="heading-strong-l">
-                      {institution.name}
-                    </Text>
-                    <Text
-                      variant="heading-default-xs"
-                      onBackground="neutral-weak">
-                      {institution.description}
-                    </Text>
-                  </Column>
+                  <ScrollRevealCard
+                    duration={0.4}
+                    key={`${institution.name}-${index}`}>
+                    <Column fillWidth gap="4">
+                      <Text id={institution.name} variant="heading-strong-l">
+                        {institution.name}
+                      </Text>
+                      <Text
+                        variant="heading-default-xs"
+                        onBackground="neutral-weak">
+                        {institution.description}
+                      </Text>
+                    </Column>
+                  </ScrollRevealCard>
                 ))}
               </Column>
             </>
@@ -397,13 +433,15 @@ export default function About() {
 
           {about.technical.display && (
             <>
-              <Heading
-                as="h2"
-                id={about.technical.title}
-                variant="display-strong-s"
-                marginBottom="40">
-                {about.technical.title}
-              </Heading>
+              <ScrollRevealCard duration={0.4}>
+                <Heading
+                  as="h2"
+                  id={about.technical.title}
+                  variant="display-strong-s"
+                  marginBottom="40">
+                  {about.technical.title}
+                </Heading>
+              </ScrollRevealCard>
               <Column fillWidth gap="l">
                 <Heading as="h3" variant="heading-strong-m">
                   Languages & Frameworks
@@ -412,7 +450,9 @@ export default function About() {
                   {about.technical.languagesAndFrameworks.map(
                     (skill: string, index: number) => (
                       <div className={styles.skillItem} key={skill + index}>
-                        {skillIconMap[skill] || <MdImage />}
+                        <ScrollRevealCard duration={0.4}>
+                          {skillIconMap[skill] || <MdImage />}
+                        </ScrollRevealCard>
                         <span>{skill}</span>
                       </div>
                     )
@@ -425,7 +465,9 @@ export default function About() {
                   {about.technical.databases.map(
                     (db: string, index: number) => (
                       <div className={styles.skillItem} key={db + index}>
-                        {skillIconMap[db] || <MdImage />}
+                        <ScrollRevealCard duration={0.4}>
+                          {skillIconMap[db] || <MdImage />}
+                        </ScrollRevealCard>
                         <span>{db}</span>
                       </div>
                     )
@@ -438,7 +480,9 @@ export default function About() {
                   {about.technical.toolsAndPlatforms.map(
                     (tool: string, index: number) => (
                       <div className={styles.skillItem} key={tool + index}>
-                        {skillIconMap[tool] || <MdImage />}
+                        <ScrollRevealCard duration={0.4}>
+                          {skillIconMap[tool] || <MdImage />}
+                        </ScrollRevealCard>
                         <span>{tool}</span>
                       </div>
                     )
@@ -451,7 +495,9 @@ export default function About() {
                   {about.technical.designAndMedia.map(
                     (media: string, index: number) => (
                       <div className={styles.skillItem} key={media + index}>
-                        {skillIconMap[media] || <MdImage />}
+                        <ScrollRevealCard duration={0.4}>
+                          {skillIconMap[media] || <MdImage />}
+                        </ScrollRevealCard>
                         <span>{media}</span>
                       </div>
                     )

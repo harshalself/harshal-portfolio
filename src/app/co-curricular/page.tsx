@@ -16,7 +16,12 @@ export async function generateMetadata() {
 
 export default function CoCurricular() {
   // Dynamically load all MDX posts from the posts folder
-  const posts = getPosts(["src", "app", "co-curricular", "posts"]);
+  let posts = getPosts(["src", "app", "co-curricular", "posts"]);
+  posts = posts.sort((a, b) => {
+    const orderA = a.metadata.order ?? 9999;
+    const orderB = b.metadata.order ?? 9999;
+    return orderA - orderB;
+  });
   const items = posts.map((post) => ({
     id: post.metadata.id?.toString() || post.slug,
     img: post.metadata.img || "",

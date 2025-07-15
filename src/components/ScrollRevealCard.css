@@ -1,0 +1,4 @@
+.scroll-reveal-card {
+  will-change: opacity, filter, transform;
+  transition: opacity 0.4s, filter 0.4s, transform 0.4s;
+}

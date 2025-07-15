@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Fade, Flex, Line, ToggleButton, Avatar } from "@once-ui-system/core";
+import Link from "next/link";
 
 import {
   routes,
@@ -191,7 +192,11 @@ export const Header = () => {
             vertical="center"
             textVariant="body-default-s"
             gap="20">
-            <Avatar src={person.avatar} size="s" radius="full" />
+            <Link href="/about" passHref legacyBehavior>
+              <a style={{ display: "inline-block" }} aria-label="About page">
+                <Avatar src={person.avatar} size="s" radius="full" />
+              </a>
+            </Link>
           </Flex>
         </Flex>
       </Flex>

@@ -27,6 +27,7 @@ type Metadata = {
   // Add these for co-curricular
   id?: string | number;
   img?: string;
+  order?: number;
 };
 
 import { notFound } from "next/navigation";
@@ -63,6 +64,12 @@ function readMDXFile(filePath: string) {
     duration: data.duration || "",
     achievement: data.achievement || "",
     img: data.img || "", // Add this line to support Masonry images
+    order:
+      typeof data.order === "number"
+        ? data.order
+        : typeof data.order === "string"
+        ? parseInt(data.order, 10)
+        : undefined,
   };
 
   return { metadata, content };
