@@ -207,7 +207,7 @@ export default function About() {
               radius="full"
               padding="4"
               gap="8"
-              marginBottom="m"
+              marginBottom="l"
               vertical="center">
               <Icon
                 paddingLeft="12"

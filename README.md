@@ -6,7 +6,7 @@ This is my personal portfolio website, built with Next.js and based on the [Magi
 
 ## 🚀 Demo
 
-[View Live Portfolio](https://demo.magic-portfolio.com)
+[View Live Portfolio](https://harshal-portfolio-website.vercel.app)
 
 ---
 

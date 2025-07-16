@@ -1,7 +1,7 @@
 import { home } from "./content";
 
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL = "https://demo.magic-portfolio.com";
+const baseURL = "https://harshal-portfolio-website.vercel.app";
 
 const routes = {
   "/": true,
@@ -168,17 +168,18 @@ const mailchimp = {
 // default schema data
 const schema = {
   logo: "",
-  type: "Organization",
-  name: "Once UI",
+  type: "Person",
+  name: "Harshal Patil",
   description: home.description,
-  email: "lorant@once-ui.com",
+  email: "harshalpatilself@gmail.com",
 };
 
 // social links
 const sameAs = {
-  threads: "https://www.threads.com/@once_ui",
-  linkedin: "https://www.linkedin.com/company/once-ui/",
-  discord: "https://discord.com/invite/5EyAQ4eNdS",
+  github: "https://github.com/harshalself",
+  linkedin: "https://www.linkedin.com/in/harshal-patil-534502259/",
+  instagram:
+    "https://www.instagram.com/harshal_patil.mp4?igsh=MTRtZXk1NGRhdDNqMQ%3D%3D&utm_source=qr",
 };
 
 export {
