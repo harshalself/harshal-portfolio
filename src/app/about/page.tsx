@@ -308,7 +308,7 @@ export default function About() {
                 textVariant="body-default-l"
                 fillWidth
                 gap="m"
-                marginBottom="xl">
+                marginBottom="m">
                 {about.intro.description}
               </Column>
             </RevealFx>
@@ -316,7 +316,7 @@ export default function About() {
 
           {about.work.display && (
             <>
-              <ScrollRevealCard duration={0.4}>
+              <RevealFx>
                 <Heading
                   as="h2"
                   id={about.work.title}
@@ -324,7 +324,7 @@ export default function About() {
                   marginBottom="m">
                   {about.work.title}
                 </Heading>
-              </ScrollRevealCard>
+              </RevealFx>
               <Column fillWidth gap="l" marginBottom="40">
                 {about.work.experiences.map((experience, index) => (
                   <ScrollRevealCard

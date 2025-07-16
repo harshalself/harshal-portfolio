@@ -13,7 +13,6 @@ import {
   Text,
 } from "@once-ui-system/core";
 import { baseURL, about, coCurricular, person } from "@/resources";
-import { formatDate } from "@/utils/formatDate";
 import { getPosts } from "@/utils/utils";
 import { Metadata } from "next";
 
@@ -110,8 +109,7 @@ export default async function Blog({
           <Row gap="12" vertical="center">
             {avatars.length > 0 && <AvatarGroup size="s" avatars={avatars} />}
             <Text variant="body-default-s" onBackground="neutral-weak">
-              {post.metadata.publishedAt &&
-                formatDate(post.metadata.publishedAt)}
+              {post.metadata.publishedAt ?? ""}
             </Text>
           </Row>
           <Column as="article" fillWidth>

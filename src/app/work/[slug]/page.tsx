@@ -12,7 +12,6 @@ import {
   Text,
 } from "@once-ui-system/core";
 import { baseURL, about, person, work } from "@/resources";
-import { formatDate } from "@/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
 import { Metadata } from "next";
 
@@ -39,11 +38,12 @@ export async function generateMetadata({
   if (!post) return {};
 
   return Meta.generate({
-    title: post.metadata.title,
-    description: post.metadata.summary,
+    title: post.metadata.title ?? "",
+    description: post.metadata.summary ?? "",
     baseURL: baseURL,
     image:
-      post.metadata.image || `/api/og/generate?title=${post.metadata.title}`,
+      post.metadata.image ||
+      `/api/og/generate?title=${encodeURIComponent(post.metadata.title ?? "")}`,
     path: `${work.path}/${post.slug}`,
   });
 }
@@ -77,13 +77,15 @@ export default async function Project({
         as="blogPosting"
         baseURL={baseURL}
         path={`${work.path}/${post.slug}`}
-        title={post.metadata.title}
-        description={post.metadata.summary}
+        title={post.metadata.title ?? ""}
+        description={post.metadata.summary ?? ""}
         datePublished={post.metadata.publishedAt}
         dateModified={post.metadata.publishedAt}
         image={
           post.metadata.image ||
-          `/api/og/generate?title=${encodeURIComponent(post.metadata.title)}`
+          `/api/og/generate?title=${encodeURIComponent(
+            post.metadata.title ?? ""
+          )}`
         }
         author={{
           name: person.name,
@@ -118,7 +120,7 @@ export default async function Project({
             <AvatarGroup reverse avatars={avatars} size="m" />
           )}
           <Text variant="body-default-s" onBackground="neutral-weak">
-            {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
+            {post.metadata.publishedAt ?? ""}
           </Text>
         </Flex>
         <CustomMDX source={post.content} />

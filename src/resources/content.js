@@ -1,5 +1,3 @@
-import { Logo } from "@once-ui-system/core";
-
 const person = {
   firstName: "Harshal",
   lastName: "Patil",
@@ -26,8 +24,6 @@ const newsletter = {
 };
 
 const social = [
-  // Links are automatically displayed.
-  // Import new icons in /once-ui/icons.ts
   {
     name: "GitHub",
     icon: "github",
@@ -52,7 +48,6 @@ const social = [
 
 const home = {
   path: "/",
-  image: "/images/og/home.jpg",
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
@@ -77,10 +72,6 @@ const about = {
   },
   avatar: {
     display: true,
-  },
-  calendar: {
-    display: true,
-    link: "https://cal.com",
   },
   intro: {
     display: true,
@@ -198,8 +189,6 @@ const coCurricular = {
   label: "Co-curricular",
   title: "Writing about design and tech...",
   description: `Read what ${person.name} has been up to recently`,
-  // Create new co-curricular posts by adding a new .mdx file to app/co-curricular/posts
-  // All posts will be listed on the /co-curricular route
 };
 
 const work = {
@@ -207,8 +196,6 @@ const work = {
   label: "Work",
   title: `Projects – ${person.name}`,
   description: `Design and dev projects by ${person.name}`,
-  // Create new project pages by adding a new .mdx file to app/blog/posts
-  // All projects will be listed on the /home and /work routes
 };
 
 const extraCurricular = {
@@ -216,50 +203,6 @@ const extraCurricular = {
   label: "Extra-curricular",
   title: `Photo extra-curricular – ${person.name}`,
   description: `A photo collection by ${person.name}`,
-  // Images by https://lorant.one
-  // These are placeholder images, replace with your own
-  images: [
-    {
-      src: "/images/extra-curricular/horizontal-1.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/extra-curricular/horizontal-2.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/extra-curricular/horizontal-3.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/extra-curricular/horizontal-4.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/extra-curricular/vertical-1.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/extra-curricular/vertical-2.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/extra-curricular/vertical-3.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/extra-curricular/vertical-4.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-  ],
 };
 
 export {

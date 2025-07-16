@@ -10,7 +10,7 @@ export function SplineModel() {
       className="spline-desktop"
       style={{
         width: 443,
-        height: 285,
+        height: 225,
         minWidth: 0,
         overflow: "hidden",
         display: "flex",
