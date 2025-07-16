@@ -89,7 +89,7 @@ export default function HomeCarousels({
       <InfiniteMomentumCarousel
         cardWidth={isMobile ? 300 : 440}
         cardSpacing={isMobile ? 16 : 48}
-        height={isMobile ? 260 : projectCarouselHeight}>
+        height={isMobile ? 360 : projectCarouselHeight}>
         {allProjects.map((project: Project) => (
           <ProjectCard
             key={project.slug}
@@ -112,7 +112,7 @@ export default function HomeCarousels({
         cardWidth={isMobile ? 180 : 300}
         cardSpacing={isMobile ? 8 : 28}
         autoScrollSpeed={-2}
-        height={isMobile ? 180 : carouselHeight}>
+        height={260}>
         {extraCurricularPosts.map((post: Post, idx: number) => {
           const Icon = getExtraIcon(post.metadata.title);
           return (
@@ -173,10 +173,10 @@ export default function HomeCarousels({
       </InfiniteMomentumCarousel>
       {/* Co-curricular Infinite Carousel */}
       <InfiniteMomentumCarousel
-        cardWidth={isMobile ? 220 : 440}
+        cardWidth={isMobile ? 300 : 440}
         cardSpacing={isMobile ? 8 : 24}
         autoScrollSpeed={2}
-        height={isMobile ? 180 : carouselHeight}>
+        height={260}>
         {coCurricularImages.map((src, idx) => (
           <div
             key={src}

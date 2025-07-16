@@ -26,6 +26,7 @@ import { GiMusicalNotes } from "react-icons/gi";
 import { SplineModel } from "@/components/SplineModel";
 import { getPosts } from "@/utils/utils";
 import HomeCarousels from "@/components/HomeCarousels";
+import HomeHeroMobileWrapper from "@/components/HomeHeroMobileWrapper";
 
 export default function Home() {
   const allProjects = getPosts(["src", "app", "work", "projects"]).map(
@@ -119,7 +120,7 @@ export default function Home() {
       />
       <Column fillWidth paddingY="24" gap="m">
         <div
-          className="hero-responsive"
+          className="hero-responsive hero-desktop-only"
           style={{
             display: "flex",
             flexDirection: "row",
@@ -130,10 +131,9 @@ export default function Home() {
             overflow: "hidden",
           }}>
           <div
+            className="hero-content-responsive"
             style={{
-              width: 620,
               minWidth: 0,
-              marginRight: 48,
               overflow: "hidden",
             }}>
             <Column maxWidth="s">
@@ -196,6 +196,7 @@ export default function Home() {
             <SplineModel />
           </div>
         </div>
+        <HomeHeroMobileWrapper />
       </Column>
       <HomeCarousels
         allProjects={allProjects}
