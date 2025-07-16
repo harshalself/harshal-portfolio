@@ -5,6 +5,7 @@ import { InfiniteMomentumCarousel } from "@/components/InfiniteMomentumCarousel"
 import { ProjectCard } from "@/components/ProjectCard";
 import { Mailchimp } from "@/components/Mailchimp";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface Project {
   slug: string;
@@ -91,21 +92,27 @@ export default function HomeCarousels({
         cardWidth={isMobile ? 300 : 440}
         cardSpacing={isMobile ? 16 : 48}
         height={isMobile ? 360 : projectCarouselHeight}>
-        {allProjects.map((project: Project) => (
-          <ProjectCard
+        {allProjects.map((project: Project, idx: number) => (
+          <motion.div
             key={project.slug}
-            href={`work/${project.slug}`}
-            images={project.metadata.images || []}
-            title={project.metadata.title || ""}
-            content={project.content}
-            avatars={
-              project.metadata.team?.map((member: { avatar: string }) => ({
-                src: member.avatar,
-              })) || []
-            }
-            link={project.metadata.link || ""}
-            technologies={project.metadata.technologies || []}
-          />
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: idx * 0.05 }}
+            style={{ height: "100%", width: "100%" }}>
+            <ProjectCard
+              href={`work/${project.slug}`}
+              images={project.metadata.images || []}
+              title={project.metadata.title || ""}
+              content={project.content}
+              avatars={
+                project.metadata.team?.map((member: { avatar: string }) => ({
+                  src: member.avatar,
+                })) || []
+              }
+              link={project.metadata.link || ""}
+              technologies={project.metadata.technologies || []}
+            />
+          </motion.div>
         ))}
       </InfiniteMomentumCarousel>
       {/* Extra-curricular Infinite Carousel */}
@@ -113,62 +120,69 @@ export default function HomeCarousels({
         cardWidth={isMobile ? 180 : 300}
         cardSpacing={isMobile ? 8 : 28}
         autoScrollSpeed={-2}
-        height={260}>
+        height={isMobile ? 260 : 380}>
         {extraCurricularPosts.map((post: Post, idx: number) => {
           const Icon = getExtraIcon(post.metadata.title);
           return (
-            <div
+            <motion.div
               key={post.slug}
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 16,
-                background: offWhiteTransparent,
-                position: "relative",
-                overflow: "hidden",
-                padding: 16,
-                boxShadow: "0 2px 24px 0 rgba(0,0,0,0.06)",
-                zIndex: 0,
-              }}>
-              {/* Glowing animated gradient */}
-              <span
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              style={{ height: "100%", width: "100%" }}>
+              <div
                 style={{
-                  position: "absolute",
-                  top: "-40%",
-                  left: "-40%",
-                  width: "180%",
-                  height: "180%",
-                  background: gradients[idx % gradients.length],
-                  filter: "blur(20px)",
-                  opacity: 0.32,
-                  zIndex: 1,
-                  borderRadius: "50%",
-                  animation: `glowmove 4s linear infinite`,
-                  pointerEvents: "none",
-                }}
-              />
-              <span
-                style={{ zIndex: 2, position: "relative", marginBottom: 8 }}>
-                <Icon size={40} color="#fff" />
-              </span>
-              <span
-                style={{
-                  fontWeight: 700,
-                  fontSize: 20,
-                  textAlign: "center",
-                  color: "#fff",
-                  letterSpacing: 0.5,
-                  lineHeight: 1.2,
-                  zIndex: 2,
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 16,
+                  background: offWhiteTransparent,
                   position: "relative",
+                  overflow: "hidden",
+                  padding: 16,
+                  boxShadow: "0 2px 24px 0 rgba(0,0,0,0.06)",
+                  zIndex: 0,
                 }}>
-                {post.metadata.title}
-              </span>
-            </div>
+                {/* Glowing animated gradient */}
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "-40%",
+                    left: "-40%",
+                    width: "180%",
+                    height: "180%",
+                    background: gradients[idx % gradients.length],
+                    filter: "blur(20px)",
+                    opacity: 0.32,
+                    zIndex: 1,
+                    borderRadius: "50%",
+                    animation: `glowmove 4s linear infinite`,
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* Optionally, if you have an image for extra-curricular, use <Image /> here. */}
+                <span
+                  style={{ zIndex: 2, position: "relative", marginBottom: 8 }}>
+                  <Icon size={40} color="#fff" />
+                </span>
+                <span
+                  style={{
+                    fontWeight: 700,
+                    fontSize: 20,
+                    textAlign: "center",
+                    color: "#fff",
+                    letterSpacing: 0.5,
+                    lineHeight: 1.2,
+                    zIndex: 2,
+                    position: "relative",
+                  }}>
+                  {post.metadata.title}
+                </span>
+              </div>
+            </motion.div>
           );
         })}
       </InfiniteMomentumCarousel>
@@ -177,30 +191,36 @@ export default function HomeCarousels({
         cardWidth={isMobile ? 300 : 440}
         cardSpacing={isMobile ? 8 : 24}
         autoScrollSpeed={2}
-        height={260}>
+        height={isMobile ? 260 : 380}>
         {coCurricularImages.map((src, idx) => (
-          <div
+          <motion.div
             key={src}
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              borderRadius: 16,
-              boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
-              background: "#fff",
-              position: "relative",
-            }}>
-            <Image
-              src={src}
-              alt={`Co-curricular ${idx + 1}`}
-              fill
-              style={{ objectFit: "cover" }}
-              sizes="(max-width: 600px) 100vw, 440px"
-            />
-          </div>
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: idx * 0.05 }}
+            style={{ height: "100%", width: "100%" }}>
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                borderRadius: 16,
+                boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+                background: "#fff",
+                position: "relative",
+              }}>
+              <Image
+                src={src}
+                alt={`Co-curricular ${idx + 1}`}
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 600px) 100vw, 440px"
+              />
+            </div>
+          </motion.div>
         ))}
       </InfiniteMomentumCarousel>
       {newsletter.display && <Mailchimp newsletter={newsletter} />}
