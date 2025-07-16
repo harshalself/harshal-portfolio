@@ -16,6 +16,18 @@ link: "https://github.com/harshalself/Flashify"
 order: 2
 ---
 
+import { TechIcons } from "@/components/TechIcons";
+import { FaReact } from "react-icons/fa";
+import {
+  SiExpo,
+  SiTypescript,
+  SiTailwindcss,
+  SiSupabase,
+  SiFastapi,
+} from "react-icons/si";
+import { TbBrandReactNative } from "react-icons/tb";
+import { SiGoogle } from "react-icons/si";
+
 ## Overview
 
 Flashify is an AI-powered app that generates flashcards and quizzes from study materials, tracks learning progress, and works across platforms.
@@ -29,15 +41,17 @@ Flashify is an AI-powered app that generates flashcards and quizzes from study m
 
 ## Technologies Used
 
-<TechIcons />
-
-- **React Native**
-- **Expo**
-- **TypeScript**
-- **Tailwind CSS**
-- **Supabase**
-- **FastAPI**
-- **Google Gemini API**
+<TechIcons
+  stack={[
+    { icon: <TbBrandReactNative size={32} />, title: "React Native" },
+    { icon: <SiExpo size={32} />, title: "Expo" },
+    { icon: <SiTypescript size={32} />, title: "TypeScript" },
+    { icon: <SiTailwindcss size={32} />, title: "Tailwind CSS" },
+    { icon: <SiSupabase size={32} />, title: "Supabase" },
+    { icon: <SiFastapi size={32} />, title: "FastAPI" },
+    { icon: <SiGoogle size={32} />, title: "Google Gemini API" },
+  ]}
+/>
 
 ## Challenges and Learnings
 
@@ -46,30 +60,3 @@ Integrating AI and cross-platform support was challenging. The project improved 
 ## Outcome
 
 Flashify helps users learn efficiently with AI-generated study tools.
-
----
-
-import { FaReact } from "react-icons/fa";
-import {
-  SiExpo,
-  SiTypescript,
-  SiTailwindcss,
-  SiSupabase,
-  SiFastapi,
-} from "react-icons/si";
-import { TbBrandReactNative } from "react-icons/tb";
-import { SiGoogle } from "react-icons/si";
-
-export function TechIcons() {
-  return (
-    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-      <TbBrandReactNative size={32} title="React Native" />
-      <SiExpo size={32} title="Expo" />
-      <SiTypescript size={32} title="TypeScript" />
-      <SiTailwindcss size={32} title="Tailwind CSS" />
-      <SiSupabase size={32} title="Supabase" />
-      <SiFastapi size={32} title="FastAPI" />
-      <SiGoogle size={32} title="Google Gemini API" />
-    </div>
-  );
-}

@@ -1,7 +1,7 @@
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 import React, { ReactNode } from "react";
 
-import { 
+import {
   Heading,
   HeadingLink,
   Text,
@@ -22,6 +22,42 @@ import {
   Media,
   SmartLink,
 } from "@once-ui-system/core";
+
+import { TechIcons } from "@/components/TechIcons";
+import {
+  FaPython,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaMicrochip,
+  FaReact,
+  FaNodeJs,
+  FaProjectDiagram,
+} from "react-icons/fa";
+import {
+  SiTensorflow,
+  SiTypescript,
+  SiFirebase,
+  SiCssmodules,
+  SiUnity,
+  SiSharp,
+  SiDotnet,
+  SiMongodb,
+  SiExpress,
+  SiExpo,
+  SiTailwindcss,
+  SiSupabase,
+  SiFastapi,
+  SiFlask,
+  SiGoogle,
+} from "react-icons/si";
+import {
+  GiPathDistance,
+  GiMeshNetwork,
+  GiWireframeGlobe,
+} from "react-icons/gi";
+import { MdSecurity } from "react-icons/md";
+import { TbBrandReactNative } from "react-icons/tb";
 
 type CustomLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
@@ -84,7 +120,10 @@ function slugify(str: string): string {
 }
 
 function createHeading(as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6") {
-  const CustomHeading = ({ children, ...props }: Omit<React.ComponentProps<typeof HeadingLink>, 'as' | 'id'>) => {
+  const CustomHeading = ({
+    children,
+    ...props
+  }: Omit<React.ComponentProps<typeof HeadingLink>, "as" | "id">) => {
     const slug = slugify(children as string);
     return (
       <HeadingLink
@@ -92,8 +131,7 @@ function createHeading(as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6") {
         marginBottom="12"
         as={as}
         id={slug}
-        {...props}
-      >
+        {...props}>
         {children}
       </HeadingLink>
     );
@@ -111,8 +149,7 @@ function createParagraph({ children }: TextProps) {
       variant="body-default-m"
       onBackground="neutral-medium"
       marginTop="8"
-      marginBottom="12"
-    >
+      marginBottom="12">
       {children}
     </Text>
   );
@@ -124,13 +161,17 @@ function createInlineCode({ children }: { children: ReactNode }) {
 
 function createCodeBlock(props: any) {
   // For pre tags that contain code blocks
-  if (props.children && props.children.props && props.children.props.className) {
+  if (
+    props.children &&
+    props.children.props &&
+    props.children.props.className
+  ) {
     const { className, children } = props.children.props;
-    
+
     // Extract language from className (format: language-xxx)
-    const language = className.replace('language-', '');
+    const language = className.replace("language-", "");
     const label = language.charAt(0).toUpperCase() + language.slice(1);
-    
+
     return (
       <CodeBlock
         marginTop="8"
@@ -139,14 +180,14 @@ function createCodeBlock(props: any) {
           {
             code: children,
             language,
-            label
-          }
+            label,
+          },
         ]}
         copyButton={true}
       />
     );
   }
-  
+
   // Fallback for other pre tags or empty code blocks
   return <pre {...props} />;
 }
@@ -179,6 +220,36 @@ const components = {
   Icon,
   Media,
   SmartLink,
+  TechIcons,
+  // Icon components for MDX
+  FaPython,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaMicrochip,
+  FaReact,
+  FaNodeJs,
+  FaProjectDiagram,
+  SiTensorflow,
+  SiTypescript,
+  SiFirebase,
+  SiCssmodules,
+  SiUnity,
+  SiSharp,
+  SiDotnet,
+  SiMongodb,
+  SiExpress,
+  SiExpo,
+  SiTailwindcss,
+  SiSupabase,
+  SiFastapi,
+  SiFlask,
+  SiGoogle,
+  GiPathDistance,
+  GiMeshNetwork,
+  GiWireframeGlobe,
+  MdSecurity,
+  TbBrandReactNative,
 };
 
 type CustomMDXProps = MDXRemoteProps & {
@@ -187,6 +258,9 @@ type CustomMDXProps = MDXRemoteProps & {
 
 export function CustomMDX(props: CustomMDXProps) {
   return (
-    <MDXRemote {...props} components={{ ...components, ...(props.components || {}) }} />
+    <MDXRemote
+      {...props}
+      components={{ ...components, ...(props.components || {}) }}
+    />
   );
 }

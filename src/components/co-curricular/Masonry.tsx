@@ -64,6 +64,10 @@ const preloadImages = async (urls: string[]): Promise<void> => {
     urls.map(
       (src) =>
         new Promise<void>((resolve) => {
+          if (typeof window === "undefined") {
+            resolve();
+            return;
+          }
           const img = new window.Image();
           img.src = src;
           img.onload = img.onerror = () => resolve();
@@ -131,6 +135,10 @@ const Masonry: React.FC<MasonryProps> = ({
         items.map(
           (item) =>
             new Promise<void>((resolve) => {
+              if (typeof window === "undefined") {
+                resolve();
+                return;
+              }
               const img = new window.Image();
               img.src = item.img;
               img.onload = () => {

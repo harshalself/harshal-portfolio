@@ -26,13 +26,15 @@ AlgoVerse is a platform for visualizing and solving pathfinding problems using D
 
 ## Technologies Used
 
-<TechIcons />
-
-- **JavaScript**
-- **HTML**
-- **CSS**
-- **Graph Algorithms**
-- **Dijkstra's Algorithm**
+<TechIcons
+  stack={[
+    { icon: <FaJs size={32} />, title: "JavaScript" },
+    { icon: <FaHtml5 size={32} />, title: "HTML" },
+    { icon: <FaCss3Alt size={32} />, title: "CSS" },
+    { icon: <FaProjectDiagram size={32} />, title: "Graph Algorithms" },
+    { icon: <GiPathDistance size={32} />, title: "Dijkstra's Algorithm" },
+  ]}
+/>
 
 ## Challenges and Learnings
 
@@ -44,17 +46,6 @@ AlgoVerse helps users understand and experiment with pathfinding algorithms in a
 
 ---
 
+import { TechIcons } from "@/components/TechIcons";
 import { FaJs, FaHtml5, FaCss3Alt, FaProjectDiagram } from "react-icons/fa";
 import { GiPathDistance } from "react-icons/gi";
-
-export function TechIcons() {
-  return (
-    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-      <FaJs size={32} title="JavaScript" />
-      <FaHtml5 size={32} title="HTML" />
-      <FaCss3Alt size={32} title="CSS" />
-      <FaProjectDiagram size={32} title="Graph Algorithms" />
-      <GiPathDistance size={32} title="Dijkstra's Algorithm" />
-    </div>
-  );
-}

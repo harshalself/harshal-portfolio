@@ -28,14 +28,16 @@ Hospital Management System is a full-stack application designed to manage hospit
 
 ## Technologies Used
 
-<TechIcons />
-
-- **MongoDB**
-- **Node.js**
-- **Express**
-- **HTML**
-- **CSS**
-- **JavaScript**
+<TechIcons
+  stack={[
+    { icon: <SiMongodb size={32} />, title: "MongoDB" },
+    { icon: <FaNodeJs size={32} />, title: "Node.js" },
+    { icon: <SiExpress size={32} />, title: "Express" },
+    { icon: <FaHtml5 size={32} />, title: "HTML" },
+    { icon: <FaCss3Alt size={32} />, title: "CSS" },
+    { icon: <FaJs size={32} />, title: "JavaScript" },
+  ]}
+/>
 
 ## Challenges and Learnings
 
@@ -47,18 +49,6 @@ The Hospital Management System streamlines hospital workflows, improves data acc
 
 ---
 
+import { TechIcons } from "@/components/TechIcons";
 import { FaNodeJs, FaHtml5, FaCss3Alt, FaJs } from "react-icons/fa";
 import { SiMongodb, SiExpress } from "react-icons/si";
-
-export function TechIcons() {
-  return (
-    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-      <SiMongodb size={32} title="MongoDB" />
-      <FaNodeJs size={32} title="Node.js" />
-      <SiExpress size={32} title="Express" />
-      <FaHtml5 size={32} title="HTML" />
-      <FaCss3Alt size={32} title="CSS" />
-      <FaJs size={32} title="JavaScript" />
-    </div>
-  );
-}

@@ -26,13 +26,15 @@ Jungle is a 3D environment built in Unity, featuring realistic terrain, vegetati
 
 ## Technologies Used
 
-<TechIcons />
-
-- **Unity Engine**
-- **C#**
-- **.NET Standard**
-- **Unity Input System**
-- **Unity TextMeshPro**
+<TechIcons
+  stack={[
+    { icon: <SiUnity size={32} />, title: "Unity Engine" },
+    { icon: <SiSharp size={32} />, title: "C#" },
+    { icon: <SiDotnet size={32} />, title: ".NET Standard" },
+    { icon: <GiWireframeGlobe size={32} />, title: "Unity Input System" },
+    { icon: <GiMeshNetwork size={32} />, title: "Unity TextMeshPro" },
+  ]}
+/>
 
 ## Challenges and Learnings
 
@@ -44,17 +46,6 @@ Jungle demonstrates my ability to work with 3D engines and create immersive envi
 
 ---
 
+import { TechIcons } from "@/components/TechIcons";
 import { SiUnity, SiSharp, SiDotnet } from "react-icons/si";
 import { GiMeshNetwork, GiWireframeGlobe } from "react-icons/gi";
-
-export function TechIcons() {
-  return (
-    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-      <SiUnity size={32} title="Unity Engine" />
-      <SiSharp size={32} title="C#" />
-      <SiDotnet size={32} title=".NET Standard" />
-      <GiWireframeGlobe size={32} title="Unity Input System" />
-      <GiMeshNetwork size={32} title="Unity TextMeshPro" />
-    </div>
-  );
-}

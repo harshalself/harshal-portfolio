@@ -29,14 +29,16 @@ Resume Matcher is an AI-powered system that matches candidate resumes with job d
 
 ## Technologies Used
 
-<TechIcons />
-
-- **Python**
-- **Flask**
-- **React**
-- **Node.js**
-- **Google Gemini AI**
-- **Supabase**
+<TechIcons
+  stack={[
+    { icon: <FaPython size={32} />, title: "Python" },
+    { icon: <SiFlask size={32} />, title: "Flask" },
+    { icon: <FaReact size={32} />, title: "React" },
+    { icon: <FaNodeJs size={32} />, title: "Node.js" },
+    { icon: <SiGoogle size={32} />, title: "Google Gemini AI" },
+    { icon: <SiSupabase size={32} />, title: "Supabase" },
+  ]}
+/>
 
 ## Challenges and Learnings
 
@@ -48,20 +50,7 @@ The Resume Matcher Project streamlines the recruitment process by providing inte
 
 ---
 
+import { TechIcons } from "@/components/TechIcons";
 import { FaPython, FaReact, FaNodeJs } from "react-icons/fa";
 import { SiFlask, SiSupabase } from "react-icons/si";
 import { SiGoogle } from "react-icons/si";
-
-export function TechIcons() {
-  return (
-    <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-      <FaPython size={32} title="Python" />
-      <SiFlask size={32} title="Flask" />
-      <FaReact size={32} title="React" />
-      <FaNodeJs size={32} title="Node.js" />
-      <SiGoogle size={32} title="Google Gemini AI" />
-      <SiSupabase size={32} title="Supabase" />
-    </div>
-  );
-
-}

@@ -15,6 +15,16 @@ link: "https://github.com/harshalself/AI-Waste-Detection-System"
 order: 5
 ---
 
+import { TechIcons } from "@/components/TechIcons";
+import {
+  FaPython,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaMicrochip,
+} from "react-icons/fa";
+import { SiTensorflow } from "react-icons/si";
+
 ## Overview
 
 AI Waste Detection System predicts waste type using sensor data and machine learning. It features input validation, prediction confidence, and a user-friendly interface.
@@ -28,7 +38,16 @@ AI Waste Detection System predicts waste type using sensor data and machine lear
 
 ## Technologies Used
 
-<TechIcons />
+<TechIcons
+  stack={[
+    { icon: <SiTensorflow size={32} />, title: "Machine Learning" },
+    { icon: <FaPython size={32} />, title: "Python" },
+    { icon: <FaHtml5 size={32} />, title: "HTML" },
+    { icon: <FaCss3Alt size={32} />, title: "CSS" },
+    { icon: <FaJs size={32} />, title: "JavaScript" },
+    { icon: <FaMicrochip size={32} />, title: "Sensor Integration" },
+  ]}
+/>
 
 - **Machine Learning**
 - **Python**
@@ -44,27 +63,3 @@ Integrating real sensor data and building a robust ML model were key challenges.
 ## Outcome
 
 The system enables efficient, automated waste classification and demonstrates the power of ML in environmental tech.
-
----
-
-import {
-  FaPython,
-  FaHtml5,
-  FaCss3Alt,
-  FaJs,
-  FaMicrochip,
-} from "react-icons/fa";
-import { SiTensorflow } from "react-icons/si";
-
-export function TechIcons() {
-  return (
-    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-      <SiTensorflow size={32} title="Machine Learning" />
-      <FaPython size={32} title="Python" />
-      <FaHtml5 size={32} title="HTML" />
-      <FaCss3Alt size={32} title="CSS" />
-      <FaJs size={32} title="JavaScript" />
-      <FaMicrochip size={32} title="Sensor Integration" />
-    </div>
-  );
-}

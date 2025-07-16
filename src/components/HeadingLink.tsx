@@ -12,25 +12,32 @@ interface HeadingLinkProps {
   style?: React.CSSProperties;
 }
 
-export const HeadingLink: React.FC<HeadingLinkProps> = ({ id, level, children, style }) => {
+export const HeadingLink: React.FC<HeadingLinkProps> = ({
+  id,
+  level,
+  children,
+  style,
+}) => {
   const { addToast } = useToast();
 
   const copyURL = (id: string): void => {
-    const url = `${window.location.origin}${window.location.pathname}#${id}`;
-    navigator.clipboard.writeText(url).then(
-      () => {
-        addToast({
-          variant: "success",
-          message: "Link copied to clipboard.",
-        });
-      },
-      () => {
-        addToast({
-          variant: "danger",
-          message: "Failed to copy link.",
-        });
-      },
-    );
+    if (typeof window !== "undefined") {
+      const url = `${window.location.origin}${window.location.pathname}#${id}`;
+      navigator.clipboard.writeText(url).then(
+        () => {
+          addToast({
+            variant: "success",
+            message: "Link copied to clipboard.",
+          });
+        },
+        () => {
+          addToast({
+            variant: "danger",
+            message: "Failed to copy link.",
+          });
+        }
+      );
+    }
   };
 
   const variantMap = {
@@ -51,8 +58,7 @@ export const HeadingLink: React.FC<HeadingLinkProps> = ({ id, level, children, s
       onClick={() => copyURL(id)}
       className={styles.control}
       vertical="center"
-      gap="4"
-    >
+      gap="4">
       <Heading className={styles.text} id={id} variant={variant} as={asTag}>
         {children}
       </Heading>

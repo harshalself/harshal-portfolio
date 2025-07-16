@@ -28,14 +28,16 @@ Realtime Chat App is a modern chat platform with real-time messaging, authentica
 
 ## Technologies Used
 
-<TechIcons />
-
-- **React**
-- **TypeScript**
-- **Firebase**
-- **Firebase Authentication**
-- **Firebase Realtime Database**
-- **CSS Modules**
+<TechIcons
+  stack={[
+    { icon: <FaReact size={32} />, title: "React" },
+    { icon: <SiTypescript size={32} />, title: "TypeScript" },
+    { icon: <SiFirebase size={32} />, title: "Firebase" },
+    { icon: <MdSecurity size={32} />, title: "Firebase Authentication" },
+    { icon: <SiFirebase size={32} />, title: "Firebase Realtime Database" },
+    { icon: <SiCssmodules size={32} />, title: "CSS Modules" },
+  ]}
+/>
 
 ## Challenges and Learnings
 
@@ -47,19 +49,7 @@ The app provides a fast, secure, and modern chat experience for users.
 
 ---
 
+import { TechIcons } from "@/components/TechIcons";
 import { FaReact } from "react-icons/fa";
 import { SiTypescript, SiFirebase, SiCssmodules } from "react-icons/si";
 import { MdSecurity } from "react-icons/md";
-
-export function TechIcons() {
-  return (
-    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-      <FaReact size={32} title="React" />
-      <SiTypescript size={32} title="TypeScript" />
-      <SiFirebase size={32} title="Firebase" />
-      <MdSecurity size={32} title="Firebase Authentication" />
-      <SiFirebase size={32} title="Firebase Realtime Database" />
-      <SiCssmodules size={32} title="CSS Modules" />
-    </div>
-  );
-}

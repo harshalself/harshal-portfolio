@@ -99,6 +99,7 @@ export default async function RootLayout({
             `,
           }}
         />
+        <link rel="icon" href="/images/avatar.jpg" type="image/jpeg" />
       </head>
       <Providers>
         <Column
