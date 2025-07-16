@@ -114,6 +114,7 @@ export default function Home() {
       />
       <Column fillWidth paddingY="24" gap="m">
         <div
+          className="hero-responsive"
           style={{
             display: "flex",
             flexDirection: "row",
@@ -136,7 +137,10 @@ export default function Home() {
                 fillWidth
                 horizontal="start"
                 paddingBottom="16">
-                <Heading wrap="balance" variant="display-strong-l">
+                <Heading
+                  wrap="balance"
+                  variant="display-strong-l"
+                  className="hero-title-responsive">
                   {home.headline}
                 </Heading>
               </RevealFx>
@@ -149,7 +153,8 @@ export default function Home() {
                 <Text
                   wrap="balance"
                   onBackground="neutral-weak"
-                  variant="heading-default-xl">
+                  variant="heading-default-xl"
+                  className="hero-subline-responsive">
                   {home.subline}
                 </Text>
               </RevealFx>
@@ -182,14 +187,16 @@ export default function Home() {
             </Column>
           </div>
           {/* Spline 3D model: only show on desktop */}
-          <SplineModel />
+          <div className="spline-desktop-only">
+            <SplineModel />
+          </div>
         </div>
       </Column>
       {/* Replace Projects grid with infinite momentum carousel */}
       <InfiniteMomentumCarousel
-        cardWidth={440}
-        cardSpacing={48}
-        height={projectCarouselHeight}>
+        cardWidth={window.innerWidth < 600 ? 300 : 440}
+        cardSpacing={window.innerWidth < 600 ? 16 : 48}
+        height={window.innerWidth < 600 ? 260 : projectCarouselHeight}>
         {allProjects.map((project) => (
           <ProjectCard
             key={project.slug}
@@ -209,10 +216,10 @@ export default function Home() {
       </InfiniteMomentumCarousel>
       {/* Extra-curricular Infinite Carousel */}
       <InfiniteMomentumCarousel
-        cardWidth={300}
-        cardSpacing={28}
+        cardWidth={window.innerWidth < 600 ? 180 : 300}
+        cardSpacing={window.innerWidth < 600 ? 8 : 28}
         autoScrollSpeed={-2}
-        height={carouselHeight}>
+        height={window.innerWidth < 600 ? 180 : carouselHeight}>
         {getPosts(["src", "app", "extra-curricular", "posts"]).map(
           (post, idx) => {
             const Icon = getExtraIcon(post.metadata.title);
@@ -275,10 +282,10 @@ export default function Home() {
       </InfiniteMomentumCarousel>
       {/* Co-curricular Infinite Carousel */}
       <InfiniteMomentumCarousel
-        cardWidth={440}
-        cardSpacing={24}
+        cardWidth={window.innerWidth < 600 ? 220 : 440}
+        cardSpacing={window.innerWidth < 600 ? 8 : 24}
         autoScrollSpeed={2}
-        height={carouselHeight}>
+        height={window.innerWidth < 600 ? 180 : carouselHeight}>
         {coCurricularImages.map((src, idx) => (
           <div
             key={src}
