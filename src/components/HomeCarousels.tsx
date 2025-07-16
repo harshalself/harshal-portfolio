@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { InfiniteMomentumCarousel } from "@/components/InfiniteMomentumCarousel";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Mailchimp } from "@/components/Mailchimp";
+import Image from "next/image";
 
 interface Project {
   slug: string;
@@ -190,15 +191,14 @@ export default function HomeCarousels({
               borderRadius: 16,
               boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
               background: "#fff",
+              position: "relative",
             }}>
-            <img
+            <Image
               src={src}
               alt={`Co-curricular ${idx + 1}`}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
+              fill
+              style={{ objectFit: "cover" }}
+              sizes="(max-width: 600px) 100vw, 440px"
             />
           </div>
         ))}
