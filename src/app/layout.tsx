@@ -43,6 +43,7 @@ export default async function RootLayout({
         fonts.code.variable
       )}>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script
           id="theme-init"
           dangerouslySetInnerHTML={{

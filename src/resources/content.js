@@ -16,9 +16,9 @@ const newsletter = {
   title: <>Want to work together or collab on a project?</>,
   description: (
     <>
-      I'm always open to new opportunities, collaborations, or interesting
-      projects. If you'd like to connect, discuss an idea, or work together,
-      feel free to reach out!
+      I&apos;m always open to new opportunities, collaborations, or interesting
+      projects. If you&apos;d like to connect, discuss an idea, or work
+      together, feel free to reach out!
     </>
   ),
 };
@@ -54,7 +54,7 @@ const home = {
   headline: <>Bridging Code, Creativity & Intelligence</>,
   subline: (
     <>
-      I'm Harshal, building web experiences and
+      I&apos;m Harshal, building web experiences and
       <br />
       automations powered by AI.
     </>
@@ -78,7 +78,7 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        I'm Harshal Patil, a B.Tech AI & Data Science student at KKWIEER,
+        I&apos;m Harshal Patil, a B.Tech AI & Data Science student at KKWIEER,
         passionate about building smart, user-focused web applications. I blend
         full-stack development, AI, and automation to create impactful
         solutions. A hackathon winner and student leader, I thrive where
