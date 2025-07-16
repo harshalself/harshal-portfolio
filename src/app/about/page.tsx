@@ -195,34 +195,33 @@ export default function About() {
             minHeight="160"
             vertical="center"
             marginBottom="32">
-            {about.calendar.display && (
-              <Flex
-                fitWidth
-                border="brand-alpha-medium"
-                className={styles.blockAlign}
-                style={{
-                  backdropFilter: "blur(var(--static-space-1))",
-                }}
-                background="brand-alpha-weak"
-                radius="full"
-                padding="4"
-                gap="8"
-                marginBottom="m"
-                vertical="center">
-                <Icon
-                  paddingLeft="12"
-                  name="linkedin"
-                  onBackground="brand-weak"
-                />
-                <Flex paddingX="8">Message on LinkedIn</Flex>
-                <IconButton
-                  href="https://www.linkedin.com/in/harshal-patil-534502259/"
-                  data-border="rounded"
-                  variant="secondary"
-                  icon="chevronRight"
-                />
-              </Flex>
-            )}
+            {/* LinkedIn message block, always shown */}
+            <Flex
+              fitWidth
+              border="brand-alpha-medium"
+              className={styles.blockAlign}
+              style={{
+                backdropFilter: "blur(var(--static-space-1))",
+              }}
+              background="brand-alpha-weak"
+              radius="full"
+              padding="4"
+              gap="8"
+              marginBottom="m"
+              vertical="center">
+              <Icon
+                paddingLeft="12"
+                name="linkedin"
+                onBackground="brand-weak"
+              />
+              <Flex paddingX="8">Message on LinkedIn</Flex>
+              <IconButton
+                href="https://www.linkedin.com/in/harshal-patil-534502259/"
+                data-border="rounded"
+                variant="secondary"
+                icon="chevronRight"
+              />
+            </Flex>
             <RevealFx
               translateY="4"
               fillWidth

@@ -17,9 +17,9 @@ import { getPosts } from "@/utils/utils";
 import { Metadata } from "next";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "co-curricular", "posts"]);
-  return posts.map((post) => ({
-    slug: post.slug,
+  const coCurricularPosts = getPosts(["src", "app", "co-curricular", "posts"]);
+  return coCurricularPosts.map((item) => ({
+    slug: item.slug,
   }));
 }
 
@@ -33,22 +33,22 @@ export async function generateMetadata({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  const posts = getPosts(["src", "app", "co-curricular", "posts"]);
-  let post = posts.find((post) => post.slug === slugPath);
+  const coCurricularPosts = getPosts(["src", "app", "co-curricular", "posts"]);
+  let item = coCurricularPosts.find((item) => item.slug === slugPath);
 
-  if (!post) return {};
+  if (!item) return {};
 
   return Meta.generate({
-    title: post.metadata.title,
-    description: post.metadata.summary,
+    title: item.metadata.title ?? "",
+    description: item.metadata.summary ?? "",
     baseURL: baseURL,
     image:
-      post.metadata.image || `/api/og/generate?title=${post.metadata.title}`,
-    path: `${coCurricular.path}/${post.slug}`,
+      item.metadata.image || `/api/og/generate?title=${item.metadata.title}`,
+    path: `${coCurricular.path}/${item.slug}`,
   });
 }
 
-export default async function Blog({
+export default async function CoCurricularPage({
   params,
 }: {
   params: Promise<{ slug: string | string[] }>;
@@ -58,16 +58,16 @@ export default async function Blog({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  let post = getPosts(["src", "app", "co-curricular", "posts"]).find(
-    (post) => post.slug === slugPath
+  let item = getPosts(["src", "app", "co-curricular", "posts"]).find(
+    (item) => item.slug === slugPath
   );
 
-  if (!post) {
+  if (!item) {
     notFound();
   }
 
   const avatars =
-    post.metadata.team?.map((person) => ({
+    item.metadata.team?.map((person) => ({
       src: person.avatar,
     })) || [];
 
@@ -79,15 +79,15 @@ export default async function Blog({
           <Schema
             as="blogPosting"
             baseURL={baseURL}
-            path={`${coCurricular.path}/${post.slug}`}
-            title={post.metadata.title}
-            description={post.metadata.summary}
-            datePublished={post.metadata.publishedAt}
-            dateModified={post.metadata.publishedAt}
+            path={`${coCurricular.path}/${item.slug}`}
+            title={item.metadata.title ?? ""}
+            description={item.metadata.summary ?? ""}
+            datePublished={item.metadata.publishedAt ?? ""}
+            dateModified={item.metadata.publishedAt ?? ""}
             image={
-              post.metadata.image ||
+              item.metadata.image ||
               `/api/og/generate?title=${encodeURIComponent(
-                post.metadata.title
+                item.metadata.title ?? ""
               )}`
             }
             author={{
@@ -103,17 +103,17 @@ export default async function Blog({
             variant="tertiary"
             size="s"
             prefixIcon="chevronLeft">
-            Posts
+            Co-curricular
           </Button>
-          <Heading variant="display-strong-s">{post.metadata.title}</Heading>
+          <Heading variant="display-strong-s">{item.metadata.title}</Heading>
           <Row gap="12" vertical="center">
             {avatars.length > 0 && <AvatarGroup size="s" avatars={avatars} />}
             <Text variant="body-default-s" onBackground="neutral-weak">
-              {post.metadata.publishedAt ?? ""}
+              {item.metadata.publishedAt ?? ""}
             </Text>
           </Row>
           <Column as="article" fillWidth>
-            <CustomMDX source={post.content} />
+            <CustomMDX source={item.content} />
           </Column>
           <ScrollToHash />
         </Column>
@@ -133,7 +133,7 @@ export default async function Blog({
           onBackground="neutral-medium"
           textVariant="label-default-s">
           <Icon name="document" size="xs" />
-          On this page
+          On this co-curricular
         </Row>
         <HeadingNav fitHeight />
       </Column>

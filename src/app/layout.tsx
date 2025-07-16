@@ -21,7 +21,6 @@ export async function generateMetadata() {
     description: home.description,
     baseURL: baseURL,
     path: home.path,
-    image: home.image,
   });
 }
 
@@ -106,11 +105,7 @@ export default async function RootLayout({
           as="body"
           background="page"
           fillWidth
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-          }}
+          className="body-root"
           margin="0"
           padding="0"
           horizontal="center">
