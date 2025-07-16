@@ -2,7 +2,7 @@
 
 import {
   AvatarGroup,
-  Carousel,
+  Carousel as OnceCarousel,
   Column,
   Flex,
   Heading,
@@ -53,7 +53,7 @@ interface ProjectCardProps {
   images: string[];
   title: string;
   content: string;
-  description: string;
+  description?: string;
   avatars: { src: string }[];
   link: string;
   technologies?: string[];
@@ -123,7 +123,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   return (
     <Column fillWidth gap="m">
-      <Carousel
+      <OnceCarousel
         sizes="(max-width: 960px) 100vw, 960px"
         items={images.map((image) => ({
           slide: image,

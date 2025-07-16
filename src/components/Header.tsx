@@ -192,10 +192,11 @@ export const Header = () => {
             vertical="center"
             textVariant="body-default-s"
             gap="20">
-            <Link href="/about" passHref legacyBehavior>
-              <a style={{ display: "inline-block" }} aria-label="About page">
-                <Avatar src={person.avatar} size="s" radius="full" />
-              </a>
+            <Link
+              href="/about"
+              aria-label="About page"
+              style={{ display: "inline-block" }}>
+              <Avatar src={person.avatar} size="s" radius="full" />
             </Link>
           </Flex>
         </Flex>

@@ -1,0 +1,11 @@
+/* Hide horizontal scrollbar for infinite momentum carousel */
+.infinite-momentum-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide Spline 3D model on screens < 900px */
+@media (max-width: 899px) {
+  .spline-desktop-3d {
+    display: none !important;
+  }
+}

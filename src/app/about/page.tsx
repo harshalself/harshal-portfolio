@@ -39,14 +39,18 @@ import {
   SiRender,
   SiGooglecloud,
   SiGooglecolab,
-  SiReplit,
   SiPostman,
-  SiNotion,
   SiFigma,
   SiCanva,
   SiAdobe,
+  SiNextdotjs,
+  SiPowers,
+  SiN8N,
+  SiVscodium,
 } from "react-icons/si";
-import { MdImage } from "react-icons/md";
+import { MdImage, MdVideoLibrary } from "react-icons/md";
+import { GiDiamonds } from "react-icons/gi";
+import { FaHeart, FaChartBar } from "react-icons/fa";
 import ScrollFloat from "@/components/ScrollFloat";
 import ScrollRevealCard from "@/components/ScrollRevealCard";
 
@@ -109,28 +113,27 @@ export default function About() {
     "Node.js": <SiNodedotjs />,
     "Express.js": <SiExpress />,
     "Tailwind CSS": <SiTailwindcss />,
+    "Next.js": <SiNextdotjs />,
+    "Vercel AI SDK": <SiVercel />,
     MongoDB: <SiMongodb />,
     PostgreSQL: <SiPostgresql />,
     Firebase: <SiFirebase />,
+    Supabase: <SiSupabase />,
     Git: <SiGit />,
     GitHub: <SiGithub />,
-    "GitHub Projects": <SiGithub />,
-    Supabase: <SiSupabase />,
     Vercel: <SiVercel />,
     Render: <SiRender />,
     "Google Cloud": <SiGooglecloud />,
     "Google Colab": <SiGooglecolab />,
-    Replit: <SiReplit />,
-    "Visual Studio Code (VS Code)": <MdImage />,
-    Postman: <SiPostman />,
-    Notion: <SiNotion />,
+    "Visual Studio Code (VS Code)": <SiVscodium />,
+    CapCut: <MdVideoLibrary />,
+    "Cursor AI Editor": <GiDiamonds />,
+    "Lovable Dev": <FaHeart />,
+    PowerBI: <FaChartBar />,
+    n8n: <SiN8N />,
     Figma: <SiFigma />,
     Canva: <SiCanva />,
     Lightroom: <SiAdobe />,
-    Snapseed: <MdImage />,
-    CapCut: <MdImage />,
-    "Cursor AI Editor": <MdImage />,
-    "Lovable Dev": <MdImage />,
   };
   return (
     <Column maxWidth="m">
