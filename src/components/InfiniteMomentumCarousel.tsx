@@ -32,12 +32,11 @@ export const InfiniteMomentumCarousel: React.FC<
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [velocity, setVelocity] = useState(0);
-  const [animationFrame, setAnimationFrame] = useState<number | null>(null);
+  const animationFrame = useRef<number | null>(null);
   const lastX = useRef(0);
   const lastTime = useRef(0);
   const momentum = useRef(0);
   const isMomentumScrolling = useRef(false);
-  const isAutoScrolling = useRef(true);
   const autoScrollDirection = useRef(1); // 1 for right, -1 for left
   const transitionThreshold = 2.0; // px/frame
 
@@ -53,12 +52,8 @@ export const InfiniteMomentumCarousel: React.FC<
     setScrollLeft(containerRef.current?.scrollLeft || 0);
     lastX.current = e.clientX;
     lastTime.current = performance.now();
-    if (animationFrame) {
-      cancelAnimationFrame(animationFrame);
-      setAnimationFrame(null);
-    }
-    isAutoScrolling.current = false;
     isMomentumScrolling.current = false;
+    momentum.current = 0;
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -81,67 +76,13 @@ export const InfiniteMomentumCarousel: React.FC<
     setIsDragging(false);
     // If there was a significant drag, apply momentum; otherwise, resume auto-scroll
     if (Math.abs(velocity) > 0.01) {
-      momentum.current = velocity * 1000; // px/sec
+      // Convert px/ms to px/frame (assuming ~16.67ms per frame at 60fps)
+      momentum.current = velocity * 16.67;
       isMomentumScrolling.current = true;
-      // Do NOT change autoScrollDirection.current; always use initial direction
-      animateMomentum();
     } else {
-      isAutoScrolling.current = true;
+      isMomentumScrolling.current = false;
+      momentum.current = 0;
     }
-  };
-
-  // --- Momentum & Blending Animation ---
-  const animateMomentum = () => {
-    if (!containerRef.current) return;
-    let frame: number;
-    let lastTimestamp = performance.now();
-    const step = (timestamp: number) => {
-      const dt = timestamp - lastTimestamp;
-      lastTimestamp = timestamp;
-      // Apply friction
-      momentum.current *= 0.95;
-      const targetSpeed = autoScrollSpeed * autoScrollDirection.current;
-      // If momentum is in the opposite direction, immediately resume auto-scroll
-      if (
-        momentum.current !== 0 &&
-        Math.sign(momentum.current) !== Math.sign(targetSpeed)
-      ) {
-        isMomentumScrolling.current = false;
-        isAutoScrolling.current = true;
-        setAnimationFrame(null);
-        return;
-      }
-      // If momentum is close to auto-scroll speed, blend smoothly
-      if (Math.abs(momentum.current - targetSpeed) < transitionThreshold) {
-        const blendFactor =
-          Math.abs(momentum.current - targetSpeed) / transitionThreshold;
-        let blendedVelocity =
-          momentum.current * blendFactor + targetSpeed * (1 - blendFactor);
-        // Clamp: never let blendedVelocity drop below targetSpeed in the correct direction
-        if (Math.abs(blendedVelocity) < Math.abs(targetSpeed)) {
-          blendedVelocity = targetSpeed;
-        }
-        // If very close, switch to auto-scroll
-        if (Math.abs(blendedVelocity - targetSpeed) < 0.2) {
-          isMomentumScrolling.current = false;
-          isAutoScrolling.current = true;
-          setAnimationFrame(null);
-          return;
-        }
-        containerRef.current!.scrollLeft += blendedVelocity * (dt / 1000);
-        handleInfiniteScroll();
-        frame = requestAnimationFrame(step);
-        setAnimationFrame(frame);
-        return;
-      }
-      // Regular momentum
-      containerRef.current!.scrollLeft += momentum.current * (dt / 1000);
-      handleInfiniteScroll();
-      frame = requestAnimationFrame(step);
-      setAnimationFrame(frame);
-    };
-    frame = requestAnimationFrame(step);
-    setAnimationFrame(frame);
   };
 
   // --- Infinite Scroll Logic ---
@@ -155,13 +96,85 @@ export const InfiniteMomentumCarousel: React.FC<
     }
   }, [totalWidth]);
 
+  // --- Unified Animation Loop ---
+  useEffect(() => {
+    let lastTimestamp = performance.now();
+    const animate = (timestamp: number) => {
+      const dt = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+      if (containerRef.current) {
+        let speed = 0;
+        if (isDragging) {
+          // Dragging: do nothing, user controls scroll
+        } else if (
+          isMomentumScrolling.current &&
+          Math.abs(momentum.current) > 0.01
+        ) {
+          // Apply friction
+          momentum.current *= 0.95;
+          const targetSpeed = autoScrollSpeed * autoScrollDirection.current;
+          // If momentum is in the opposite direction, switch to auto-scroll
+          if (
+            momentum.current !== 0 &&
+            Math.sign(momentum.current) !== Math.sign(targetSpeed)
+          ) {
+            isMomentumScrolling.current = false;
+            momentum.current = 0;
+            speed = targetSpeed;
+          } else if (
+            Math.abs(momentum.current - targetSpeed) < transitionThreshold
+          ) {
+            // Blend momentum into auto-scroll speed
+            const blendFactor =
+              Math.abs(momentum.current - targetSpeed) / transitionThreshold;
+            let blendedVelocity =
+              momentum.current * blendFactor + targetSpeed * (1 - blendFactor);
+            if (Math.abs(blendedVelocity) < Math.abs(targetSpeed)) {
+              blendedVelocity = targetSpeed;
+            }
+            speed = blendedVelocity;
+            // If very close, switch to auto-scroll
+            if (Math.abs(blendedVelocity - targetSpeed) < 0.2) {
+              isMomentumScrolling.current = false;
+              momentum.current = 0;
+              speed = targetSpeed;
+            }
+          } else {
+            speed = momentum.current;
+            // If momentum is very low, switch to auto-scroll
+            if (Math.abs(momentum.current) < 0.2) {
+              isMomentumScrolling.current = false;
+              momentum.current = 0;
+              speed = targetSpeed;
+            }
+          }
+        } else {
+          // Always auto-scroll when not dragging or in momentum
+          speed = autoScrollSpeed * autoScrollDirection.current;
+        }
+        if (!isDragging && speed !== 0) {
+          containerRef.current.scrollLeft += speed;
+          handleInfiniteScroll();
+        }
+      }
+      animationFrame.current = requestAnimationFrame(animate);
+    };
+    animationFrame.current = requestAnimationFrame(animate);
+    return () => {
+      if (animationFrame.current !== null)
+        cancelAnimationFrame(animationFrame.current);
+    };
+    // eslint-disable-next-line
+  }, [autoScrollSpeed, isDragging, handleInfiniteScroll]);
+
   // --- On Mount: Center to Middle Set ---
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollLeft = totalWidth;
     }
     return () => {
-      if (animationFrame) cancelAnimationFrame(animationFrame);
+      if (animationFrame.current !== null)
+        cancelAnimationFrame(animationFrame.current);
     };
     // eslint-disable-next-line
   }, []);
@@ -174,26 +187,6 @@ export const InfiniteMomentumCarousel: React.FC<
     node.addEventListener("dragstart", prevent);
     return () => node.removeEventListener("dragstart", prevent);
   }, []);
-
-  // --- Auto-scroll Effect ---
-  useEffect(() => {
-    let frame: number;
-    const autoScroll = () => {
-      if (
-        !isDragging &&
-        !isMomentumScrolling.current &&
-        isAutoScrolling.current &&
-        containerRef.current
-      ) {
-        containerRef.current.scrollLeft +=
-          autoScrollSpeed * autoScrollDirection.current;
-        handleInfiniteScroll();
-      }
-      frame = requestAnimationFrame(autoScroll);
-    };
-    frame = requestAnimationFrame(autoScroll);
-    return () => cancelAnimationFrame(frame);
-  }, [autoScrollSpeed, isDragging, handleInfiniteScroll]);
 
   // --- Render ---
   return (
