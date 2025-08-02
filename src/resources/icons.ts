@@ -1,5 +1,6 @@
 import { IconType } from "react-icons";
 
+// Hero Icons (Outline and Solid variants)
 import {
   HiArrowUpRight,
   HiOutlineLink,
@@ -14,6 +15,7 @@ import {
   HiOutlineRocketLaunch,
 } from "react-icons/hi2";
 
+// Phosphor Icons (Duotone variants)
 import {
   PiHouseDuotone,
   PiUserCircleDuotone,
@@ -22,6 +24,7 @@ import {
   PiImageDuotone,
 } from "react-icons/pi";
 
+// Font Awesome Icons
 import {
   FaDiscord,
   FaGithub,

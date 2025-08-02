@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useRef, useEffect, useState, ReactNode } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  ReactNode,
+  useCallback,
+} from "react";
 
 interface InfiniteMomentumCarouselProps {
   children: ReactNode;
@@ -138,7 +144,7 @@ export const InfiniteMomentumCarousel: React.FC<
   };
 
   // --- Infinite Scroll Logic ---
-  const handleInfiniteScroll = () => {
+  const handleInfiniteScroll = useCallback(() => {
     if (!containerRef.current) return;
     const scrollLeft = containerRef.current.scrollLeft;
     if (scrollLeft < totalWidth * 0.5) {
@@ -146,7 +152,7 @@ export const InfiniteMomentumCarousel: React.FC<
     } else if (scrollLeft > totalWidth * 1.5) {
       containerRef.current.scrollLeft -= totalWidth;
     }
-  };
+  }, [totalWidth]);
 
   // --- On Mount: Center to Middle Set ---
   useEffect(() => {
@@ -186,7 +192,7 @@ export const InfiniteMomentumCarousel: React.FC<
     };
     frame = requestAnimationFrame(autoScroll);
     return () => cancelAnimationFrame(frame);
-  }, [autoScrollSpeed]);
+  }, [autoScrollSpeed, isDragging, handleInfiniteScroll]);
 
   // --- Render ---
   return (

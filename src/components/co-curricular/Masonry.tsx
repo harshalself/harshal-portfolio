@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useRef,
   useState,
+  useCallback,
 } from "react";
 import { gsap } from "gsap";
 import styles from "./Masonry.module.css";
@@ -225,6 +226,42 @@ const Masonry: React.FC<MasonryProps> = ({
 
   const hasMounted = useRef(false);
 
+  // Use useCallback to memoize the function
+  const getInitialPosition = useCallback(
+    (item: any) => {
+      const containerRect = containerRef.current?.getBoundingClientRect();
+      if (!containerRect) return { x: item.x, y: item.y };
+
+      let direction = animateFrom;
+
+      if (animateFrom === "random") {
+        const directions = ["top", "bottom", "left", "right"];
+        direction = directions[
+          Math.floor(Math.random() * directions.length)
+        ] as typeof animateFrom;
+      }
+
+      switch (direction) {
+        case "top":
+          return { x: item.x, y: -200 };
+        case "bottom":
+          return { x: item.x, y: window.innerHeight + 200 };
+        case "left":
+          return { x: -200, y: item.y };
+        case "right":
+          return { x: window.innerWidth + 200, y: item.y };
+        case "center":
+          return {
+            x: containerRect.width / 2 - item.w / 2,
+            y: containerRect.height / 2 - item.h / 2,
+          };
+        default:
+          return { x: item.x, y: item.y + 100 };
+      }
+    },
+    [containerRef, animateFrom]
+  );
+
   useLayoutEffect(() => {
     if (!imagesReady) return;
 
@@ -267,7 +304,16 @@ const Masonry: React.FC<MasonryProps> = ({
     });
 
     hasMounted.current = true;
-  }, [grid, imagesReady, stagger, animateFrom, blurToFocus, duration, ease]);
+  }, [
+    grid,
+    imagesReady,
+    stagger,
+    animateFrom,
+    blurToFocus,
+    duration,
+    ease,
+    getInitialPosition,
+  ]);
 
   const handleMouseEnter = (e: React.MouseEvent, item: any) => {
     const element = e.currentTarget as HTMLElement;
@@ -319,37 +365,7 @@ const Masonry: React.FC<MasonryProps> = ({
     }
   };
 
-  const getInitialPosition = (item: any) => {
-    const containerRect = containerRef.current?.getBoundingClientRect();
-    if (!containerRect) return { x: item.x, y: item.y };
-
-    let direction = animateFrom;
-
-    if (animateFrom === "random") {
-      const directions = ["top", "bottom", "left", "right"];
-      direction = directions[
-        Math.floor(Math.random() * directions.length)
-      ] as typeof animateFrom;
-    }
-
-    switch (direction) {
-      case "top":
-        return { x: item.x, y: -200 };
-      case "bottom":
-        return { x: item.x, y: window.innerHeight + 200 };
-      case "left":
-        return { x: -200, y: item.y };
-      case "right":
-        return { x: window.innerWidth + 200, y: item.y };
-      case "center":
-        return {
-          x: containerRect.width / 2 - item.w / 2,
-          y: containerRect.height / 2 - item.h / 2,
-        };
-      default:
-        return { x: item.x, y: item.y + 100 };
-    }
-  };
+  // Function moved to the top of the component
 
   const maxHeight =
     grid.length > 0 ? Math.max(...grid.map((item) => item.y + item.h)) : 0;

@@ -23,7 +23,6 @@ import {
   FaStar,
 } from "react-icons/fa";
 import { GiMusicalNotes } from "react-icons/gi";
-import { GifModel } from "@/components/GifModel";
 import { getPosts } from "@/utils/utils";
 import HomeCarousels from "@/components/HomeCarousels";
 
@@ -124,9 +123,8 @@ export default function Home() {
             display: "flex",
             flexDirection: "row",
             alignItems: "stretch",
-            justifyContent: "flex-end",
+            justifyContent: "center",
             width: "100%",
-            gap: 32,
             overflow: "hidden",
           }}>
           <div
@@ -134,8 +132,9 @@ export default function Home() {
             style={{
               minWidth: 0,
               overflow: "hidden",
+              width: "100%",
             }}>
-            <Column maxWidth="s">
+            <Column maxWidth="l">
               <RevealFx
                 translateY="4"
                 fillWidth
@@ -189,10 +188,6 @@ export default function Home() {
                 </Button>
               </RevealFx>
             </Column>
-          </div>
-          {/* GIF model: only show on desktop */}
-          <div className="gif-desktop-only">
-            <GifModel />
           </div>
         </div>
       </Column>
