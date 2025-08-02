@@ -23,10 +23,9 @@ import {
   FaStar,
 } from "react-icons/fa";
 import { GiMusicalNotes } from "react-icons/gi";
-import { SplineModel } from "@/components/SplineModel";
+import { GifModel } from "@/components/GifModel";
 import { getPosts } from "@/utils/utils";
 import HomeCarousels from "@/components/HomeCarousels";
-import HomeHeroMobileWrapper from "@/components/HomeHeroMobileWrapper";
 
 export default function Home() {
   const allProjects = getPosts(["src", "app", "work", "projects"]).map(
@@ -191,12 +190,11 @@ export default function Home() {
               </RevealFx>
             </Column>
           </div>
-          {/* Spline 3D model: only show on desktop */}
-          <div className="spline-desktop-only">
-            <SplineModel />
+          {/* GIF model: only show on desktop */}
+          <div className="gif-desktop-only">
+            <GifModel />
           </div>
         </div>
-        <HomeHeroMobileWrapper />
       </Column>
       <HomeCarousels
         allProjects={allProjects}

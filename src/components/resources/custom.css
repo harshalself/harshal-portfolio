@@ -3,9 +3,9 @@
   display: none;
 }
 
-/* Hide Spline 3D model on screens < 900px */
+/* Hide GIF model on screens < 900px */
 @media (max-width: 899px) {
-  .spline-desktop-3d {
+  .gif-desktop-3d {
     display: none !important;
   }
 }
@@ -22,7 +22,7 @@
     align-items: center !important;
     gap: 16px !important;
   }
-  .spline-desktop-only {
+  .gif-desktop-only {
     display: none !important;
   }
   .hero-desktop-only {

@@ -27,6 +27,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "raw.githubusercontent.com",
       },
+      {
+        protocol: "https",
+        hostname: "user-images.githubusercontent.com",
+      },
       // Add more domains as needed
     ],
   },
