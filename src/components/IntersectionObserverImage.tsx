@@ -28,39 +28,34 @@ export function IntersectionObserverImage({
   priority = false,
   quality = 85,
 }: IntersectionObserverImageProps) {
+  const observerRef = useRef<IntersectionObserver | null>(null);
   const imgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Skip for priority images (load immediately)
     if (priority) return;
+
+    const node = imgRef.current;
+    if (!node) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Add data-loaded attribute when image enters viewport
-            if (imgRef.current) {
-              imgRef.current.setAttribute("data-loaded", "true");
-            }
-            // Stop observing
+            entry.target.setAttribute("data-loaded", "true");
             observer.unobserve(entry.target);
           }
         });
       },
       {
-        rootMargin: "200px", // Start loading when image is within 200px of viewport
-        threshold: 0.01, // Trigger when just 1% is visible
+        rootMargin: "200px",
+        threshold: 0.01,
       }
     );
-
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
-    }
+    observer.observe(node);
+    observerRef.current = observer;
 
     return () => {
-      if (imgRef.current) {
-        observer.unobserve(imgRef.current);
-      }
+      observer.disconnect();
     };
   }, [priority]);
 

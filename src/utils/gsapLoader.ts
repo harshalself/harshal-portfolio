@@ -43,10 +43,12 @@ export const loadScrollTrigger = async () => {
 };
 
 // Hook for components that need GSAP
-export const useGSAP = (
-  callback: (gsap: any) => void | (() => void),
-  deps: any[] = []
-) => {
+/**
+ * useGSAP hook
+ * @param callback - Your GSAP logic (should be stable, e.g. useCallback)
+ * Example: useGSAP(cb)
+ */
+export const useGSAP = (callback: (gsap: any) => void | (() => void)) => {
   const cleanupRef = useRef<(() => void) | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -70,15 +72,19 @@ export const useGSAP = (
         cleanupRef.current = null;
       }
     };
-  }, deps);
+  }, [callback]);
 
   return isLoaded;
 };
 
 // Hook for components that need ScrollTrigger
+/**
+ * useGSAPWithScrollTrigger hook
+ * @param callback - Your GSAP+ScrollTrigger logic (should be stable, e.g. useCallback)
+ * Example: useGSAPWithScrollTrigger(cb)
+ */
 export const useGSAPWithScrollTrigger = (
-  callback: (gsap: any, ScrollTrigger: any) => void | (() => void),
-  deps: any[] = []
+  callback: (gsap: any, ScrollTrigger: any) => void | (() => void)
 ) => {
   const cleanupRef = useRef<(() => void) | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -104,7 +110,7 @@ export const useGSAPWithScrollTrigger = (
         cleanupRef.current = null;
       }
     };
-  }, deps);
+  }, [callback]);
 
   return isLoaded;
 };

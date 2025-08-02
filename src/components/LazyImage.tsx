@@ -58,13 +58,14 @@ export function LazyImage({
       }
     );
 
-    if (imageRef.current) {
-      observer.observe(imageRef.current);
+    const currentImageRef = imageRef.current;
+    if (currentImageRef) {
+      observer.observe(currentImageRef);
     }
 
     return () => {
-      if (imageRef.current) {
-        observer.unobserve(imageRef.current);
+      if (currentImageRef) {
+        observer.unobserve(currentImageRef);
       }
     };
   }, [loadEagerly, observerMargin, rootMargin]);
