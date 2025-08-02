@@ -54,9 +54,7 @@ const home = {
   headline: <>Bridging Code, Creativity & Intelligence</>,
   subline: (
     <>
-      I&apos;m Harshal, building web experiences and
-      <br />
-      automations powered by AI.
+      I&apos;m Harshal, building web experiences and automations powered by AI.
     </>
   ),
 };

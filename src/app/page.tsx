@@ -14,7 +14,6 @@ import {
 import { home, about, person, newsletter, baseURL } from "@/resources";
 import { Mailchimp } from "@/components";
 import { ProjectCard } from "@/components/ProjectCard";
-import { InfiniteMomentumCarousel } from "@/components/InfiniteMomentumCarousel";
 import {
   FaUsers,
   FaTheaterMasks,
@@ -24,7 +23,8 @@ import {
 } from "react-icons/fa";
 import { GiMusicalNotes } from "react-icons/gi";
 import { getPosts } from "@/utils/utils";
-import HomeCarousels from "@/components/HomeCarousels";
+import { DynamicHomeCarousels } from "@/components/DynamicComponents";
+import styles from "@/components/HomeHero.module.scss";
 
 export default function Home() {
   const allProjects = getPosts(["src", "app", "work", "projects"]).map(
@@ -118,7 +118,7 @@ export default function Home() {
       />
       <Column fillWidth paddingY="24" gap="m">
         <div
-          className="hero-responsive hero-desktop-only"
+          className={styles.heroResponsive}
           style={{
             display: "flex",
             flexDirection: "row",
@@ -128,7 +128,6 @@ export default function Home() {
             overflow: "hidden",
           }}>
           <div
-            className="hero-content-responsive"
             style={{
               minWidth: 0,
               overflow: "hidden",
@@ -143,7 +142,7 @@ export default function Home() {
                 <Heading
                   wrap="balance"
                   variant="display-strong-l"
-                  className="hero-title-responsive">
+                  className={styles.heroTitleResponsive}>
                   {home.headline}
                 </Heading>
               </RevealFx>
@@ -157,7 +156,7 @@ export default function Home() {
                   wrap="balance"
                   onBackground="neutral-weak"
                   variant="heading-default-xl"
-                  className="hero-subline-responsive">
+                  className={styles.heroSublineResponsive}>
                   {home.subline}
                 </Text>
               </RevealFx>
@@ -191,7 +190,7 @@ export default function Home() {
           </div>
         </div>
       </Column>
-      <HomeCarousels
+      <DynamicHomeCarousels
         allProjects={allProjects}
         coCurricularImages={coCurricularImages}
         newsletter={newsletter}

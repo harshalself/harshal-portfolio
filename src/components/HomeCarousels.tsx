@@ -217,7 +217,11 @@ export default function HomeCarousels({
                 alt={`Co-curricular ${idx + 1}`}
                 fill
                 style={{ objectFit: "cover" }}
-                sizes="(max-width: 600px) 100vw, 440px"
+                sizes="(max-width: 600px) 300px, (max-width: 1024px) 400px, 440px"
+                quality={85} // Slightly reduced quality but still looks good
+                loading={idx < 3 ? "eager" : "lazy"} // Only eagerly load first few images
+                placeholder="blur"
+                blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJub25lIj48cGF0aCBmaWxsPSIjRTlFQkVFIiBkPSJNMCAwaDQwMHYzMDBIMHoiLz48L3N2Zz4=" // Light grey placeholder
               />
             </div>
           </motion.div>

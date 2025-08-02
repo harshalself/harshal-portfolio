@@ -1,6 +1,6 @@
 import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
 import { baseURL, coCurricular, person, newsletter } from "@/resources";
-import Masonry from "@/components/co-curricular/Masonry";
+import { DynamicMasonry } from "@/components/DynamicComponents";
 import { getPosts } from "@/utils/utils";
 import { RevealFx } from "@once-ui-system/core";
 
@@ -62,7 +62,7 @@ export default function CoCurricular() {
           width: "100%",
           paddingBottom: "80px",
         }}>
-        <Masonry
+        <DynamicMasonry
           items={items}
           ease="power3.out"
           duration={0.6}

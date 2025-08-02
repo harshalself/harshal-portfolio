@@ -7,6 +7,7 @@ import React, {
   ReactNode,
   useCallback,
 } from "react";
+import styles from "./InfiniteMomentumCarousel.module.scss";
 
 interface InfiniteMomentumCarouselProps {
   children: ReactNode;
@@ -213,7 +214,7 @@ export const InfiniteMomentumCarousel: React.FC<
         scrollbarWidth: "none", // Firefox
         msOverflowStyle: "none", // IE 10+
       }}
-      className="infinite-momentum-carousel"
+      className={styles.infiniteMomentumCarousel}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}

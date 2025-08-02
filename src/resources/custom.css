@@ -1,46 +1,7 @@
-/* Hide horizontal scrollbar for infinite momentum carousel */
-.infinite-momentum-carousel::-webkit-scrollbar {
-  display: none;
-}
-
 /* Body root styling */
-.body-root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 
 /* Responsive hero section */
-@media (max-width: 900px) {
-  .hero-responsive {
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 16px !important;
-  }
-  .hero-desktop-only {
-    display: none !important;
-  }
-  .hero-title-responsive {
-    font-size: 2rem !important;
-    text-align: center !important;
-  }
-  .hero-subline-responsive {
-    font-size: 1.1rem !important;
-    text-align: center !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .hero-responsive {
-    padding: 0 8px !important;
-  }
-  .hero-title-responsive {
-    font-size: 1.3rem !important;
-  }
-  .hero-subline-responsive {
-    font-size: 0.95rem !important;
-  }
-}
+/* Hero section styles moved to HomeHero.module.scss and !important removed */
 
 /* Custom theme colors - Uncomment to use
 :root {

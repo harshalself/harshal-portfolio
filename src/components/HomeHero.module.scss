@@ -1,0 +1,33 @@
+.heroResponsive {
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  @media (max-width: 600px) {
+    padding: 0 8px;
+  }
+}
+
+
+.heroTitleResponsive {
+  @media (max-width: 900px) {
+    font-size: 2rem;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    font-size: 1.3rem;
+  }
+}
+
+.heroSublineResponsive {
+  @media (max-width: 900px) {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    font-size: 0.95rem;
+  }
+}
