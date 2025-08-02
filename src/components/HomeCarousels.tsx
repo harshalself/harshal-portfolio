@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { InfiniteMomentumCarousel } from "@/components/InfiniteMomentumCarousel";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Mailchimp } from "@/components/Mailchimp";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import {
+  OptimizedIcon,
+  usePreloadCriticalIcons,
+} from "@/components/OptimizedIcons";
 
 interface Project {
   slug: string;
@@ -38,6 +42,10 @@ export default function HomeCarousels({
   extraCurricularPosts,
 }: HomeCarouselsProps) {
   const [isMobile, setIsMobile] = useState(false);
+
+  // Preload critical icons for better performance
+  usePreloadCriticalIcons();
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 600);
     checkMobile();
@@ -45,46 +53,51 @@ export default function HomeCarousels({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Icon selection for extra-curricular cards
-  function getExtraIcon(title: string) {
-    const t = title.toLowerCase();
-    if (
-      t.includes("head") ||
-      t.includes("secretary") ||
-      t.includes("position") ||
-      t.includes("responsibility")
-    ) {
-      return require("react-icons/fa").FaStar;
-    }
-    if (t.includes("photography")) {
-      return require("react-icons/fa").FaCamera;
-    }
-    if (
-      t.includes("community") ||
-      t.includes("volunteer") ||
-      t.includes("member") ||
-      t.includes("committee")
-    ) {
-      return require("react-icons/fa").FaUsers;
-    }
-    if (t.includes("achievement") || t.includes("winner")) {
-      return require("react-icons/fa").FaMedal;
-    }
-    if (
-      t.includes("ramayana") ||
-      t.includes("mahabharat") ||
-      t.includes("shivrajyabhishek") ||
-      t.includes("drama") ||
-      t.includes("geet")
-    ) {
-      return require("react-icons/fa").FaTheaterMasks;
-    }
-    if (t.includes("dance")) {
-      return require("react-icons/gi").GiMusicalNotes;
-    }
-    // Default icon
-    return require("react-icons/fa").FaStar;
-  }
+  // Optimized icon selection for extra-curricular cards
+  const getExtraIcon = useMemo(
+    () => (title: string) => {
+      const t = title.toLowerCase();
+      if (
+        t.includes("head") ||
+        t.includes("secretary") ||
+        t.includes("position") ||
+        t.includes("responsibility") ||
+        t.includes("achievement") ||
+        t.includes("winner")
+      ) {
+        return "FaStar" as const;
+      }
+      if (t.includes("photography")) {
+        return "FaCamera" as const;
+      }
+      if (
+        t.includes("community") ||
+        t.includes("volunteer") ||
+        t.includes("member") ||
+        t.includes("committee")
+      ) {
+        return "FaUsers" as const;
+      }
+      if (t.includes("achievement") || t.includes("winner")) {
+        return "FaMedal" as const;
+      }
+      if (
+        t.includes("ramayana") ||
+        t.includes("mahabharat") ||
+        t.includes("shivrajyabhishek") ||
+        t.includes("drama") ||
+        t.includes("geet")
+      ) {
+        return "FaTheaterMasks" as const;
+      }
+      if (t.includes("dance")) {
+        return "GiMusicalNotes" as const;
+      }
+      // Default icon
+      return "FaStar" as const;
+    },
+    []
+  );
 
   return (
     <>
@@ -122,7 +135,7 @@ export default function HomeCarousels({
         autoScrollSpeed={-2}
         height={isMobile ? 260 : 380}>
         {extraCurricularPosts.map((post: Post, idx: number) => {
-          const Icon = getExtraIcon(post.metadata.title);
+          const iconName = getExtraIcon(post.metadata.title);
           return (
             <motion.div
               key={post.slug}
@@ -163,10 +176,10 @@ export default function HomeCarousels({
                     pointerEvents: "none",
                   }}
                 />
-                {/* Optionally, if you have an image for extra-curricular, use <Image /> here. */}
+                {/* Optimized icon component */}
                 <span
                   style={{ zIndex: 2, position: "relative", marginBottom: 8 }}>
-                  <Icon size={40} color="#fff" />
+                  <OptimizedIcon name={iconName} size={40} />
                 </span>
                 <span
                   style={{

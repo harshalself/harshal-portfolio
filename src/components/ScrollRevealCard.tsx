@@ -1,14 +1,9 @@
+// Optimized ScrollRevealCard with lazy GSAP loading
 "use client";
 
-import React, { useRef, useEffect, ReactNode } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useRef, ReactNode } from "react";
+import { useGSAPWithScrollTrigger } from "@/utils/gsapLoader";
 import "./ScrollRevealCard.css";
-
-// Register plugin
-if (typeof window !== "undefined" && gsap && ScrollTrigger) {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 interface ScrollRevealCardProps {
   children: ReactNode;
@@ -29,35 +24,46 @@ const ScrollRevealCard: React.FC<ScrollRevealCardProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+  // Use optimized GSAP loading
+  useGSAPWithScrollTrigger(
+    (gsap, ScrollTrigger) => {
+      const el = ref.current;
+      if (!el) return;
 
-    gsap.fromTo(
-      el,
-      {
-        opacity: baseOpacity,
-        filter: `blur(${baseBlur}px)`,
-        y: baseY,
-      },
-      {
-        opacity: 1,
-        filter: "blur(0px)",
-        y: 0,
-        duration,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
+      const animation = gsap.fromTo(
+        el,
+        {
+          opacity: baseOpacity,
+          filter: `blur(${baseBlur}px)`,
+          y: baseY,
         },
-      }
-    );
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          y: 0,
+          duration: duration,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            end: "bottom 15%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, [baseOpacity, baseBlur, baseY, duration]);
+      // Return cleanup function
+      return () => {
+        animation.kill();
+        ScrollTrigger.getAll().forEach((trigger: any) => {
+          if (trigger.trigger === el) {
+            trigger.kill();
+          }
+        });
+      };
+    },
+    [baseOpacity, baseBlur, baseY, duration]
+  );
 
   return (
     <div ref={ref} className={`scroll-reveal-card ${className}`}>
