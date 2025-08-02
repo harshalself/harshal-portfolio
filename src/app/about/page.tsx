@@ -52,7 +52,7 @@ import { MdImage, MdVideoLibrary } from "react-icons/md";
 import { GiDiamonds } from "react-icons/gi";
 import { FaHeart, FaChartBar } from "react-icons/fa";
 import ScrollFloat from "@/components/ScrollFloat";
-import ScrollRevealCard from "@/components/ScrollRevealCard";
+import { DynamicScrollRevealCard } from "@/components/DynamicComponents";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -326,7 +326,7 @@ export default function About() {
               </RevealFx>
               <Column fillWidth gap="l" marginBottom="40">
                 {about.work.experiences.map((experience, index) => (
-                  <ScrollRevealCard
+                  <DynamicScrollRevealCard
                     duration={0.4}
                     key={`${experience.company}-${experience.role}-${index}`}>
                     <Column fillWidth>
@@ -395,7 +395,7 @@ export default function About() {
                         </Flex>
                       )}
                     </Column>
-                  </ScrollRevealCard>
+                  </DynamicScrollRevealCard>
                 ))}
               </Column>
             </>
@@ -403,7 +403,7 @@ export default function About() {
 
           {about.studies.display && (
             <>
-              <ScrollRevealCard duration={0.4}>
+              <DynamicScrollRevealCard duration={0.4}>
                 <Heading
                   as="h2"
                   id={about.studies.title}
@@ -411,10 +411,10 @@ export default function About() {
                   marginBottom="m">
                   {about.studies.title}
                 </Heading>
-              </ScrollRevealCard>
+              </DynamicScrollRevealCard>
               <Column fillWidth gap="l" marginBottom="40">
                 {about.studies.institutions.map((institution, index) => (
-                  <ScrollRevealCard
+                  <DynamicScrollRevealCard
                     duration={0.4}
                     key={`${institution.name}-${index}`}>
                     <Column fillWidth gap="4">
@@ -427,7 +427,7 @@ export default function About() {
                         {institution.description}
                       </Text>
                     </Column>
-                  </ScrollRevealCard>
+                  </DynamicScrollRevealCard>
                 ))}
               </Column>
             </>
@@ -435,7 +435,7 @@ export default function About() {
 
           {about.technical.display && (
             <>
-              <ScrollRevealCard duration={0.4}>
+              <DynamicScrollRevealCard duration={0.4}>
                 <Heading
                   as="h2"
                   id={about.technical.title}
@@ -443,7 +443,7 @@ export default function About() {
                   marginBottom="40">
                   {about.technical.title}
                 </Heading>
-              </ScrollRevealCard>
+              </DynamicScrollRevealCard>
               <Column fillWidth gap="l">
                 <Heading as="h3" variant="heading-strong-m">
                   Languages & Frameworks
@@ -452,9 +452,9 @@ export default function About() {
                   {about.technical.languagesAndFrameworks.map(
                     (skill: string, index: number) => (
                       <div className={styles.skillItem} key={skill + index}>
-                        <ScrollRevealCard duration={0.4}>
+                        <DynamicScrollRevealCard duration={0.4}>
                           {skillIconMap[skill] || <MdImage />}
-                        </ScrollRevealCard>
+                        </DynamicScrollRevealCard>
                         <span>{skill}</span>
                       </div>
                     )
@@ -467,9 +467,9 @@ export default function About() {
                   {about.technical.databases.map(
                     (db: string, index: number) => (
                       <div className={styles.skillItem} key={db + index}>
-                        <ScrollRevealCard duration={0.4}>
+                        <DynamicScrollRevealCard duration={0.4}>
                           {skillIconMap[db] || <MdImage />}
-                        </ScrollRevealCard>
+                        </DynamicScrollRevealCard>
                         <span>{db}</span>
                       </div>
                     )
@@ -482,9 +482,9 @@ export default function About() {
                   {about.technical.toolsAndPlatforms.map(
                     (tool: string, index: number) => (
                       <div className={styles.skillItem} key={tool + index}>
-                        <ScrollRevealCard duration={0.4}>
+                        <DynamicScrollRevealCard duration={0.4}>
                           {skillIconMap[tool] || <MdImage />}
-                        </ScrollRevealCard>
+                        </DynamicScrollRevealCard>
                         <span>{tool}</span>
                       </div>
                     )
@@ -497,9 +497,9 @@ export default function About() {
                   {about.technical.designAndMedia.map(
                     (media: string, index: number) => (
                       <div className={styles.skillItem} key={media + index}>
-                        <ScrollRevealCard duration={0.4}>
+                        <DynamicScrollRevealCard duration={0.4}>
                           {skillIconMap[media] || <MdImage />}
-                        </ScrollRevealCard>
+                        </DynamicScrollRevealCard>
                         <span>{media}</span>
                       </div>
                     )

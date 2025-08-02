@@ -10,13 +10,16 @@ let scrollTriggerPromise: Promise<any> | null = null;
 // Lazy load GSAP only when needed
 export const loadGSAP = async () => {
   if (!gsapPromise) {
-    gsapPromise = import("gsap").then((module) => {
-      if (typeof window !== "undefined") {
-        // Store GSAP globally for other components
-        (window as any).gsap = module.gsap;
+    // Using webpackChunkName for better code splitting
+    gsapPromise = import(/* webpackChunkName: "gsap-core" */ "gsap").then(
+      (module) => {
+        if (typeof window !== "undefined") {
+          // Store GSAP globally for other components
+          (window as any).gsap = module.gsap;
+        }
+        return module.gsap;
       }
-      return module.gsap;
-    });
+    );
   }
   return gsapPromise;
 };
@@ -24,9 +27,11 @@ export const loadGSAP = async () => {
 // Lazy load ScrollTrigger plugin
 export const loadScrollTrigger = async () => {
   if (!scrollTriggerPromise) {
+    // Split into separate dynamic imports for better code splitting
     scrollTriggerPromise = Promise.all([
       loadGSAP(),
-      import("gsap/ScrollTrigger"),
+      // Dynamic import of just the ScrollTrigger plugin
+      import(/* webpackChunkName: "gsap-scrolltrigger" */ "gsap/ScrollTrigger"),
     ]).then(([gsap, scrollTriggerModule]) => {
       if (typeof window !== "undefined") {
         gsap.registerPlugin(scrollTriggerModule.ScrollTrigger);
@@ -105,11 +110,19 @@ export const useGSAPWithScrollTrigger = (
 };
 
 // Preload GSAP for critical animations (call this in layout or critical components)
-export const preloadGSAP = () => {
+export const preloadGSAP = (delayMs = 5000) => {
   if (typeof window !== "undefined") {
     // Preload GSAP on user interaction or after a delay
     const preload = () => {
-      loadGSAP();
+      // Use requestIdleCallback to load during browser idle time if available
+      if ("requestIdleCallback" in window) {
+        (window as any).requestIdleCallback(() => loadGSAP(), {
+          timeout: 1000,
+        });
+      } else {
+        loadGSAP();
+      }
+
       document.removeEventListener("mousemove", preload);
       document.removeEventListener("scroll", preload);
       document.removeEventListener("touchstart", preload);
@@ -126,7 +139,7 @@ export const preloadGSAP = () => {
       passive: true,
     });
 
-    // Fallback: preload after 3 seconds if no interaction
-    setTimeout(preload, 3000);
+    // Fallback: preload after delay if no interaction (increased from 3s to 5s)
+    setTimeout(preload, delayMs);
   }
 };

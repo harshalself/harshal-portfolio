@@ -67,8 +67,26 @@ const DynamicMasonry = dynamic(
   }
 );
 
+// Dynamic ScrollRevealCard with optimized loading
+const DynamicScrollRevealCard = dynamic(
+  () => import("@/components/ScrollRevealCard"),
+  {
+    loading: () => (
+      <div
+        style={{
+          minHeight: "100px",
+          backgroundColor: "transparent",
+          opacity: 0.5,
+        }}
+      />
+    ),
+    ssr: false, // Disable server-side rendering for this component
+  }
+);
+
 export {
   DynamicHomeCarousels,
   DynamicInfiniteMomentumCarousel,
   DynamicMasonry,
+  DynamicScrollRevealCard,
 };

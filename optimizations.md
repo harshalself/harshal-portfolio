@@ -112,9 +112,9 @@ const loadGSAP = () => {
 
 **Actions:**
 
-- [ ] Lazy load animation libraries below the fold
-- [ ] Split GSAP plugins into separate chunks
-- [ ] Use `loading="lazy"` for all non-critical components
+- [x] Lazy load animation libraries below the fold
+- [x] Split GSAP plugins into separate chunks
+- [x] Use `loading="lazy"` for all non-critical components
 
 ## 💡 High Impact Optimizations
 

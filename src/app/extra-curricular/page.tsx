@@ -3,7 +3,7 @@ import { ExtraCurricularCard } from "@/components/extra-curricular/ExtraCurricul
 import { baseURL, extraCurricular, person } from "@/resources";
 import { getPosts } from "@/utils/utils";
 import { RevealFx } from "@once-ui-system/core";
-import ScrollRevealCard from "@/components/ScrollRevealCard";
+import { DynamicScrollRevealCard } from "@/components/DynamicComponents";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -56,14 +56,14 @@ export default function ExtraCurricular() {
         marginBottom="40"
         maxWidth={832}>
         {posts.map((post) => (
-          <ScrollRevealCard key={post.slug} duration={0.4}>
+          <DynamicScrollRevealCard key={post.slug} duration={0.4}>
             <ExtraCurricularCard
               title={post.metadata.title || ""}
               duration={post.metadata.duration || ""}
               description={post.metadata.description || ""}
               achievement={post.metadata.achievement || ""}
             />
-          </ScrollRevealCard>
+          </DynamicScrollRevealCard>
         ))}
       </Grid>
     </Flex>

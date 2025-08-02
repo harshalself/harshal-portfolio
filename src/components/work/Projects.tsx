@@ -1,7 +1,7 @@
 import { getPosts } from "@/utils/utils";
 import { Column, Grid } from "@once-ui-system/core";
 import { ProjectCard } from "@/components";
-import ScrollRevealCard from "@/components/ScrollRevealCard";
+import { DynamicScrollRevealCard } from "@/components/DynamicComponents";
 
 interface ProjectsProps {
   range?: [number, number?];
@@ -29,7 +29,7 @@ export function Projects({ range }: ProjectsProps) {
       marginBottom="40"
       paddingX="l">
       {displayedProjects.map((post, index) => (
-        <ScrollRevealCard key={post.slug} duration={0.4}>
+        <DynamicScrollRevealCard key={post.slug} duration={0.4}>
           <ProjectCard
             priority={index < 2}
             href={`work/${post.slug}`}
@@ -44,7 +44,7 @@ export function Projects({ range }: ProjectsProps) {
             link={post.metadata.link || ""}
             technologies={post.metadata.technologies || []}
           />
-        </ScrollRevealCard>
+        </DynamicScrollRevealCard>
       ))}
     </Grid>
   );
