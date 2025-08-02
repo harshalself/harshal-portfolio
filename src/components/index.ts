@@ -9,3 +9,5 @@ export { ThemeToggle } from "@/components/ThemeToggle";
 export { CustomMDX } from "@/components/mdx";
 export { OptimizedAvatar } from "@/components/OptimizedAvatar";
 export { OptimizedImage } from "@/components/OptimizedImage";
+export { LazyImage } from "@/components/LazyImage";
+export { PreloadImages } from "@/components/PreloadImages";

@@ -10,6 +10,8 @@ import {
   OptimizedIcon,
   usePreloadCriticalIcons,
 } from "@/components/OptimizedIcons";
+import { PreloadImages } from "@/components/PreloadImages";
+import { LazyImage } from "@/components/LazyImage";
 
 interface Project {
   slug: string;
@@ -52,6 +54,9 @@ export default function HomeCarousels({
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  // Preload critical carousel images
+  const criticalImages = coCurricularImages.slice(0, 3);
 
   // Optimized icon selection for extra-curricular cards
   const getExtraIcon = useMemo(
@@ -101,6 +106,9 @@ export default function HomeCarousels({
 
   return (
     <>
+      {/* Preload component for critical images */}
+      <PreloadImages images={criticalImages} count={3} />
+
       <InfiniteMomentumCarousel
         cardWidth={isMobile ? 300 : 440}
         cardSpacing={isMobile ? 16 : 48}
@@ -225,16 +233,14 @@ export default function HomeCarousels({
                 background: "#fff",
                 position: "relative",
               }}>
-              <Image
+              <LazyImage
                 src={src}
                 alt={`Co-curricular ${idx + 1}`}
                 fill
                 style={{ objectFit: "cover" }}
                 sizes="(max-width: 600px) 300px, (max-width: 1024px) 400px, 440px"
-                quality={85} // Slightly reduced quality but still looks good
-                loading={idx < 3 ? "eager" : "lazy"} // Only eagerly load first few images
-                placeholder="blur"
-                blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJub25lIj48cGF0aCBmaWxsPSIjRTlFQkVFIiBkPSJNMCAwaDQwMHYzMDBIMHoiLz48L3N2Zz4=" // Light grey placeholder
+                quality={85}
+                loadingPriority={idx < 3 ? "high" : idx < 6 ? "medium" : "low"}
               />
             </div>
           </motion.div>

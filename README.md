@@ -16,6 +16,8 @@ This is my personal portfolio website, built with Next.js and based on the [Magi
 - Customized from the Magic Portfolio template
 - Responsive, fast, and easy to update
 - Content managed via Markdown/MDX files
+- Optimized image loading with intersection observer
+- Lazy-loaded images and critical preloading for performance
 
 ---
 
@@ -34,7 +36,11 @@ This is my personal portfolio website, built with Next.js and based on the [Magi
    ```bash
    npm run dev
    ```
-4. **Edit content and config**
+4. **Optimize images**
+   ```bash
+   npm run optimize:images
+   ```
+5. **Edit content and config**
    - Update site config: `src/resources/config`
    - Edit content: `src/resources/content`
    - Add posts/projects: `src/app/co-curricular/posts` or `src/app/work/projects`

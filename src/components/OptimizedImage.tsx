@@ -71,7 +71,7 @@ export function OptimizedImage({
         className={className}
         unoptimized={skipOptimization}
         loading={priority ? "eager" : "lazy"}
-        placeholder={skipOptimization ? undefined : "blur"}
+        placeholder="blur"
         blurDataURL={
           skipOptimization ? undefined : (imageProps.blurDataURL as string)
         }

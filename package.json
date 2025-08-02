@@ -9,6 +9,7 @@
     "analyze:win": "set ANALYZE=true && next build",
     "analyze:bundle": "node scripts/analyze-bundle.js",
     "optimize": "npm run analyze:bundle && npm run analyze:win",
+    "optimize:images": "node scripts/optimize-images.js",
     "start": "next start",
     "lint": "next lint"
   },
@@ -39,6 +40,8 @@
     "@types/react-dom": "^18.3.6",
     "eslint": "^9.25.0",
     "eslint-config-next": "^15.4.1",
+    "glob": "^11.0.3",
+    "sharp": "^0.34.3",
     "typescript": "^5.8.3"
   }
 }
