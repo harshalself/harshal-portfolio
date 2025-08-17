@@ -26,7 +26,7 @@ export function IntersectionObserverImage({
   className,
   fill = false,
   priority = false,
-  quality = 85,
+  quality = 75,
 }: IntersectionObserverImageProps) {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const imgRef = useRef<HTMLDivElement>(null);

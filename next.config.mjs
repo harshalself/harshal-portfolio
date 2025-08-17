@@ -41,12 +41,18 @@ const nextConfig = {
       },
       // Add more domains as needed
     ],
-    formats: ["image/avif", "image/webp"],
-    minimumCacheTTL: 60,
+    // Reduced to only WebP to minimize transformations (was AVIF + WebP)
+    formats: ["image/webp"],
+    // Increased cache TTL to 31 days (2678400 seconds) to reduce transformations
+    minimumCacheTTL: 2678400,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Optimized device sizes for actual usage patterns
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    // Optimized image sizes for actual component usage
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 440],
+    // Limit quality options to reduce transformation variations
+    qualities: [75, 85, 95],
   },
 };
 

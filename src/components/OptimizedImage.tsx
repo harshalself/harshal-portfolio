@@ -1,10 +1,7 @@
 // Optimized image component with better defaults for Next.js Image
 import React from "react";
 import Image, { ImageProps } from "next/image";
-import {
-  getOptimizedImageProps,
-  shouldSkipOptimization,
-} from "@/utils/imageUtils";
+import { getCostOptimizedImageProps } from "@/utils/imageOptimizationHelper";
 
 interface OptimizedImageProps extends Omit<ImageProps, "src"> {
   src: string;
@@ -30,16 +27,13 @@ export function OptimizedImage({
   sizes,
   ...rest
 }: OptimizedImageProps) {
-  const skipOptimization = shouldSkipOptimization(src);
-
-  // Get default optimized props
-  const imageProps = getOptimizedImageProps({
-    src,
-    alt,
-    type: imageType,
-    priority,
-    quality:
-      typeof quality === "number" ? quality : imageType === "hero" ? 90 : 85,
+  // Get cost-optimized image properties
+  const optimizedProps = getCostOptimizedImageProps(src, alt, {
+    width: typeof width === "number" ? width : undefined,
+    height: typeof height === "number" ? height : undefined,
+    isAboveFold: priority,
+    isCarousel: imageType === "carousel",
+    isIcon: imageType === "default" && typeof width === "number" && width <= 64,
   });
 
   // If aspectRatio is provided but not width/height, set default width and calculate height
@@ -67,15 +61,14 @@ export function OptimizedImage({
         fill={fill}
         width={!fill ? width || calculatedProps.width : undefined}
         height={!fill ? height || calculatedProps.height : undefined}
-        sizes={sizes || imageProps.sizes}
+        sizes={sizes || optimizedProps.sizes}
         className={className}
-        unoptimized={skipOptimization}
-        loading={priority ? "eager" : "lazy"}
-        placeholder="blur"
-        blurDataURL={
-          skipOptimization ? undefined : (imageProps.blurDataURL as string)
-        }
-        quality={quality || imageProps.quality}
+        unoptimized={optimizedProps.unoptimized}
+        loading={optimizedProps.loading}
+        placeholder={optimizedProps.placeholder}
+        blurDataURL={optimizedProps.blurDataURL}
+        quality={quality || optimizedProps.quality}
+        priority={optimizedProps.priority}
         {...rest}
       />
     </div>

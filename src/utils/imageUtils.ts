@@ -7,13 +7,16 @@ export function getSizes(
 ): string {
   switch (type) {
     case "avatar":
-      return "(max-width: 600px) 50px, (max-width: 1024px) 80px, 100px";
+      // Smaller avatars to reduce transformations
+      return "(max-width: 600px) 40px, (max-width: 1024px) 64px, 80px";
     case "hero":
-      return "(max-width: 600px) 100vw, (max-width: 1024px) 80vw, 700px";
+      // More conservative hero sizing
+      return "(max-width: 600px) 100vw, (max-width: 1024px) 70vw, 600px";
     case "gallery":
       return "(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw";
     case "carousel":
-      return "(max-width: 600px) 300px, (max-width: 1024px) 400px, 440px";
+      // Optimized for actual carousel usage
+      return "(max-width: 600px) 280px, (max-width: 1024px) 380px, 440px";
     case "banner":
       return "100vw";
     default:
@@ -33,7 +36,7 @@ export function getOptimizedImageProps(props: {
   priority?: boolean;
   quality?: number;
 }): Partial<ImageProps> {
-  const { src, alt, type = "default", priority = false, quality = 85 } = props;
+  const { src, alt, type = "default", priority = false, quality = 75 } = props;
 
   return {
     src,
@@ -49,16 +52,33 @@ export function getOptimizedImageProps(props: {
 
 // Function to determine if an image should be unoptimized (like animated GIFs)
 export function shouldSkipOptimization(src: string): boolean {
-  // Check if image is a GIF
+  // Check if image is a GIF (animated images should be unoptimized)
   if (src.toLowerCase().endsWith(".gif")) {
     return true;
   }
 
-  // Check if image is from an external domain that might not be in next.config.js domains list
+  // Check if image is SVG (vector images should be unoptimized)
+  if (src.toLowerCase().endsWith(".svg")) {
+    return true;
+  }
+
+  // Check file size heuristics - if it's likely a small image, skip optimization
+  const isIcon =
+    /\/(icon|logo|favicon|badge|star|medal|award)[\w-]*\.(jpg|jpeg|png|webp)$/i.test(
+      src
+    );
+  if (isIcon) {
+    return true;
+  }
+
+  // Check if image is from an external domain that might not be in remotePatterns
   const isExternalDomain =
     !src.startsWith("/") &&
     !src.startsWith("data:") &&
-    !src.match(/^https?:\/\/(localhost|127\.0\.0\.1)/);
+    !src.match(/^https?:\/\/(localhost|127\.0\.0\.1)/) &&
+    !src.match(
+      /^https:\/\/(media\.licdn\.com|picsum\.photos|raw\.githubusercontent\.com|user-images\.githubusercontent\.com)/
+    );
 
   return isExternalDomain;
 }

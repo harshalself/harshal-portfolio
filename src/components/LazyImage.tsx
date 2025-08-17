@@ -2,12 +2,17 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Image, { ImageProps } from "next/image";
+import { getCostOptimizedImageProps } from "@/utils/imageOptimizationHelper";
 
 interface LazyImageProps extends Omit<ImageProps, "src"> {
   src: string;
   alt: string;
   loadingPriority?: "high" | "medium" | "low";
   rootMargin?: string;
+  isAboveFold?: boolean;
+  isCarousel?: boolean;
+  isAvatar?: boolean;
+  isIcon?: boolean;
 }
 
 /**
@@ -20,17 +25,33 @@ export function LazyImage({
   width,
   height,
   className = "",
-  quality = 85,
+  quality = 75,
   loadingPriority = "medium",
   rootMargin = "200px",
+  isAboveFold = false,
+  isCarousel = false,
+  isAvatar = false,
+  isIcon = false,
   ...rest
 }: LazyImageProps) {
   const imageRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(loadingPriority === "high");
+  const [isVisible, setIsVisible] = useState(
+    loadingPriority === "high" || isAboveFold
+  );
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Get cost-optimized image properties
+  const optimizedProps = getCostOptimizedImageProps(src, alt, {
+    width: typeof width === "number" ? width : undefined,
+    height: typeof height === "number" ? height : undefined,
+    isAboveFold,
+    isCarousel,
+    isAvatar,
+    isIcon,
+  });
+
   // Determine loading strategy based on priority
-  const loadEagerly = loadingPriority === "high";
+  const loadEagerly = loadingPriority === "high" || isAboveFold;
   const observerMargin =
     loadingPriority === "high"
       ? "500px"
@@ -92,11 +113,15 @@ export function LazyImage({
           fill={fill}
           width={!fill ? width : undefined}
           height={!fill ? height : undefined}
-          quality={quality}
+          quality={optimizedProps.quality || quality}
           onLoad={() => setIsLoaded(true)}
-          loading={loadEagerly ? "eager" : "lazy"}
-          placeholder="blur"
-          blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJub25lIj48cGF0aCBmaWxsPSIjRTlFQkVFIiBkPSJNMCAwaDQwMHYzMDBIMHoiLz48L3N2Zz4="
+          className={className}
+          unoptimized={optimizedProps.unoptimized}
+          priority={optimizedProps.priority}
+          loading={optimizedProps.loading}
+          placeholder={optimizedProps.placeholder}
+          blurDataURL={optimizedProps.blurDataURL}
+          sizes={optimizedProps.sizes}
           {...rest}
         />
       )}

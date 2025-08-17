@@ -238,9 +238,10 @@ export default function HomeCarousels({
                 alt={`Co-curricular ${idx + 1}`}
                 fill
                 style={{ objectFit: "cover" }}
-                sizes="(max-width: 600px) 300px, (max-width: 1024px) 400px, 440px"
-                quality={85}
+                sizes="(max-width: 600px) 280px, (max-width: 1024px) 380px, 440px"
+                quality={75}
                 loadingPriority={idx < 3 ? "high" : idx < 6 ? "medium" : "low"}
+                isCarousel={true}
               />
             </div>
           </motion.div>

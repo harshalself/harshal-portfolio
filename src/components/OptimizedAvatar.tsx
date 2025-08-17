@@ -1,10 +1,7 @@
 // Custom avatar component that uses next/image for better image optimization
 import React from "react";
 import Image from "next/image";
-import {
-  getOptimizedImageProps,
-  shouldSkipOptimization,
-} from "@/utils/imageUtils";
+import { getCostOptimizedImageProps } from "@/utils/imageOptimizationHelper";
 
 interface OptimizedAvatarProps {
   src: string;
@@ -21,14 +18,12 @@ export function OptimizedAvatar({
   className = "",
   priority = false,
 }: OptimizedAvatarProps) {
-  const skipOptimization = shouldSkipOptimization(src);
-
-  const imageProps = getOptimizedImageProps({
-    src,
-    alt,
-    type: "avatar",
-    priority,
-    quality: 90, // Higher quality for avatars as they're small
+  // Get cost-optimized image properties
+  const optimizedProps = getCostOptimizedImageProps(src, alt, {
+    width: size,
+    height: size,
+    isAvatar: true,
+    isAboveFold: priority,
   });
 
   return (
@@ -51,12 +46,12 @@ export function OptimizedAvatar({
           borderRadius: "50%",
         }}
         sizes={`${size}px`}
-        unoptimized={skipOptimization}
-        loading={priority ? "eager" : "lazy"}
-        placeholder={skipOptimization ? undefined : "blur"}
-        blurDataURL={
-          skipOptimization ? undefined : (imageProps.blurDataURL as string)
-        }
+        unoptimized={optimizedProps.unoptimized}
+        loading={optimizedProps.loading}
+        priority={optimizedProps.priority}
+        placeholder={optimizedProps.placeholder}
+        blurDataURL={optimizedProps.blurDataURL}
+        quality={optimizedProps.quality}
       />
     </div>
   );
